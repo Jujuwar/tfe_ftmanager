@@ -22,14 +22,37 @@
     </nav>
 {% endblock %}
 
-<div class="container">
+<div class="container m-t-1">
+    <ol class="breadcrumb">
+        {% block breadcrumb %}
+            {% if app.request.get('_route') == 'main_homepage' %}
+                <li class="active"><i class="fa fa-home"></i> Accueil</li>
+            {% else %}
+                <li><a href="{{ path('main_homepage') }}"><i class="fa fa-home"></i> Accueil</a></li>
+            {% endif %}
+        {% endblock %}
+    </ol>
+
+    {% block alert %}
+        {% for flashType in app.session.flashBag.keys %}
+            <div class="alert alert-{{ flashType }}">
+                {% for flashMessage in app.session.flashBag.get(flashType) %}
+                    {{ flashMessage }}
+                    {% if not loop.last %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
     {% block body %}
 
     {% endblock %}
 </div>
 
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 {% endblock %}
 </body>

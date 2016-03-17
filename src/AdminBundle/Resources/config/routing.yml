@@ -1,3 +1,7 @@
 admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
+
+admin_news:
+    path:     /news
+    defaults: { _controller: AdminBundle:Default:news }

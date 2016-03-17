@@ -1,0 +1,14 @@
+{% for news in array_news %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ news.title }}</td>
+        <td>{{ news.date | date("d/m/Y - H:i") }}</td>
+        <td>{{ news.author.username }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="6"><i>Aucune news</i></td>
+    </tr>
+{% endfor %}
