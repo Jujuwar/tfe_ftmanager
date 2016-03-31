@@ -1,14 +1,15 @@
-{% for news in array_news %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ news.title }}</td>
-        <td>{{ news.date | date("d/m/Y - H:i") }}</td>
-        <td>{{ news.author.username }}</td>
-        <td></td>
-        <td></td>
-    </tr>
-{% else %}
-    <tr>
-        <td colspan="6"><i>Aucune news</i></td>
-    </tr>
-{% endfor %}
+<tr data-id="{{ news.id }}">
+    <td>{{ loop.index }}</td>
+    <td>{{ news.title }}</td>
+    <td>{{ news.publishDate | date("d/m/Y - H:i") }}</td>
+    <td>{{ news.author.username }}</td>
+    <td>{% if news.publishDate > date() %} <span class="label label-info">Programée</span> {% else %} <span class="label label-success">Publiée</span> {% endif %}</td>
+    <td>
+        <div class="btn-toolbar" role="toolbar" aria-label="Outils">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Edition">
+                <button type="button" class="btn btn-secondary" data-action="delete" data-id="{{ news.id }}"><i class="fa fa-trash"></i></button>
+                <button type="button" class="btn btn-secondary" data-action="edit" data-id="{{ news.id }}"><i class="fa fa-pencil"></i></button>
+            </div>
+        </div>
+    </td>
+</tr>

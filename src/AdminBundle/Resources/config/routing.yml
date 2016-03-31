@@ -5,3 +5,19 @@ admin_homepage:
 admin_news:
     path:     /news
     defaults: { _controller: AdminBundle:Default:news }
+
+admin_news_ajax_get:
+    path:     /news/ajax/get
+    defaults: { _controller: AdminBundle:Default:ajax_get }
+
+admin_news_ajax_add:
+    path:     /news/ajax/add
+    defaults: { _controller: AdminBundle:Default:ajax_add }
+
+admin_news_ajax_edit:
+    path:     /news/ajax/edit
+    defaults: { _controller: AdminBundle:Default:ajax_edit }
+
+admin_news_ajax_delete:
+    path:     /news/ajax/delete
+    defaults: { _controller: AdminBundle:Default:ajax_delete }

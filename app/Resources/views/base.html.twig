@@ -23,6 +23,71 @@
 {% endblock %}
 
 <div class="container m-t-1">
+    {% block alert_sucess %}
+        <div class="modal fade modal_alert_success" tabindex="-1" role="dialog" aria-labelledby="modalAlertSuccess" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Succès</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <i class="fa fa-check text-success"></i> Action correctement effectuée
+                        <div class="modal-body-more-info text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block alert_error %}
+        <div class="modal fade modal_alert_error" tabindex="-1" role="dialog" aria-labelledby="modalAlertSuccess" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Erreur</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <i class="fa fa-times text-danger"></i> Une erreur s'est produite
+                        <div class="modal-body-more-info text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block alert_confirmation %}
+        <div class="modal fade modal_alert_confirmation" tabindex="-1" role="dialog" aria-labelledby="modalAlertSuccess" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Demande de confirmation</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        Êtes-vous sûr de vouloir effectuer cette action ?
+                        <div class="modal-body-more-info text-muted"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger modal-confirmation-no" data-dismiss="modal">Non</button>
+                        <button type="button" class="btn btn-primary modal-confirmation-yes" data-dismiss="modal">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
     <ol class="breadcrumb">
         {% block breadcrumb %}
             {% if app.request.get('_route') == 'main_homepage' %}
@@ -53,6 +118,7 @@
 
 {% block javascripts %}
     <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 {% endblock %}
 </body>
