@@ -1,0 +1,26 @@
+<tr data-id="{{ user.id }}">
+    <td>{{ loop.index }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ user.email }}</td>
+    <td>{% if user.hasRole( 'ROLE_SUPER_ADMIN' ) %}<i class="fa fa-user-secret" data-toggle="tooltip" data-placement="top" data-trigger="hover" title="Super Admin"></i> {% endif %}{% if user.hasRole( 'ROLE_ADMIN' ) %}Administrateur{% elseif user.hasRole( 'ROLE_ARBITRE' ) %}Arbitre{% else %}Membre{% endif %}</td>
+    <td>
+        <div class="btn-toolbar" role="toolbar" aria-label="Outils">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Edition">
+                <button type="button" class="btn btn-secondary" data-action="delete" data-id="{{ user.id }}"><i class="fa fa-trash"></i></button>
+                <a type="button" class="btn btn-secondary" href="{{ path('admin_users_edit', {'id':user.id}) }}"><i class="fa fa-pencil"></i></a>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button id="btnGroupPromote" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-star" data-toggle="tooltip" title="Promouvoir"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupPromote">
+                        <a class="dropdown-item {% if not is_granted('ROLE_SUPER_ADMIN') %}disabled{% endif %}" data-action="promote" data-id="{{ user.id }}" data-role="sup_admin">Super admin</a>
+                        <a class="dropdown-item {% if not is_granted('ROLE_ADMIN') %}disabled{% endif %}" data-action="promote" data-id="{{ user.id }}" data-role="admin">Admin</a>
+                        <a class="dropdown-item" data-action="promote" data-id="{{ user.id }}" data-role="arbitre">Arbitre</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" data-action="promote" data-id="{{ user.id }}" data-role="membre">Membre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>

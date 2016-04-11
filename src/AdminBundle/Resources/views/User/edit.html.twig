@@ -1,0 +1,29 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Utilisateurs
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+    <li class="active">Edition</li>
+{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    <div class="page-header">
+        <h1>Edition de l'utilisateur {{ user.username }}</h1>
+    </div>
+
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Utilisateurs
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Utilisateurs</li>
+{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>Gestion des utilisateurs</h1>
+    </div>
+
+    <table id="table_utilisateurs" class="table table-striped table-hover">
+        <thead class="thead-inverse">
+        <tr>
+            <th>#</th>
+            <th>Utilisateur</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody class="table_users_tbody">
+            {% for user in array_users %}
+                {% include 'AdminBundle:User:userRow.html.twig' %}
+            {% else %}
+                <tr>
+                    <td colspan="5"><i>Aucun utilisateur</i></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('.table_users_tbody').on('click', 'a[data-action="promote"]', function() {
+            var id = $(this).data('id');
+            var role = $(this).data('role');
+
+            console.log(role);
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('admin_users_ajax_promote') }}",
+                data: {
+                    id: id,
+                    role: role
+                },
+                error: function (request, error) { // Info Debuggage si erreur
+                    console.log("Erreur : responseText: " + request.responseText);
+                },
+                success: function (data) {
+                    if(data.status == 'ok') {
+                        /*$('tr[data-id="' + id + '"]').fadeOut(1500, "easeOutExpo", function() {
+                            $(this).remove();
+                            if($('.table_users_tbody tr').length == 0) {
+                                $('.table_users_tbody').append(
+                                        $('<tr>').append(
+                                                $('<td>').attr('colspan', '5').html('<i>Aucun utilisateur</i>')
+                                        )
+                                );
+                            }
+                        });*/
+                        $('.modal_alert_success').modal('show');
+                        setTimeout(function(){
+                            $(".modal_alert_success").modal('hide');
+                        }, 1700);
+
+                        console.log(data.debug);
+                    } else {
+                        $('.modal-body-more-info').html(data.debug);
+                        $('.modal_alert_error').modal('show');
+                    }
+                }
+            })
+        });
+
+        $('.table_users_tbody').on('click', 'button[data-action="delete"]', function() {
+            var id = $(this).data('id');
+            var modal = $('.modal_alert_confirmation');
+
+            modal.find('.modal-confirmation-yes').data('id', id);
+            modal.modal('show');
+        });
+
+        $('.modal-confirmation-yes').on('click', function() {
+            var id = $(this).data('id');
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('admin_users_ajax_delete') }}",
+                data: {
+                    id: id
+                },
+                error: function (request, error) { // Info Debuggage si erreur
+                    console.log("Erreur : responseText: " + request.responseText);
+                },
+                success: function (data) {
+                    if(data.status == 'ok') {
+                        $('tr[data-id="' + id + '"]').fadeOut(1500, "easeOutExpo", function() {
+                            $(this).remove();
+                            if($('.table_users_tbody tr').length == 0) {
+                                $('.table_users_tbody').append(
+                                        $('<tr>').append(
+                                                $('<td>').attr('colspan', '5').html('<i>Aucun utilisateur</i>')
+                                        )
+                                );
+                            }
+                        });
+                        $('.modal_alert_success').modal('show');
+                        setTimeout(function(){
+                            $(".modal_alert_success").modal('hide');
+                        }, 1700);
+                    } else {
+                        $('.modal-body-more-info').html(data.debug);
+                        $('.modal_alert_error').modal('show');
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
