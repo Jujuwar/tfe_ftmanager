@@ -14,11 +14,11 @@ admin_users_edit:
 
 admin_users_ajax_promote:
     path:     /users/ajax/promote
-    defaults: { _controller: AdminBundle:Default:ajax_userPromote }
+    defaults: { _controller: AdminBundle:Default:ajax_UserPromote }
 
 admin_users_ajax_delete:
     path:     /users/ajax/delete
-    defaults: { _controller: AdminBundle:Default:ajax_userDelete }
+    defaults: { _controller: AdminBundle:Default:ajax_UserDelete }
 
 # Gestion des news
 
@@ -28,16 +28,16 @@ admin_news:
 
 admin_news_ajax_get:
     path:     /news/ajax/get
-    defaults: { _controller: AdminBundle:Default:ajax_newsGet }
+    defaults: { _controller: AdminBundle:Default:ajax_NewsGet }
 
 admin_news_ajax_add:
     path:     /news/ajax/add
-    defaults: { _controller: AdminBundle:Default:ajax_newsAdd }
+    defaults: { _controller: AdminBundle:Default:ajax_NewsAdd }
 
 admin_news_ajax_edit:
     path:     /news/ajax/edit
-    defaults: { _controller: AdminBundle:Default:ajax_newsEdit }
+    defaults: { _controller: AdminBundle:Default:ajax_NewsEdit }
 
 admin_news_ajax_delete:
     path:     /news/ajax/delete
-    defaults: { _controller: AdminBundle:Default:ajax_newsDelete }
+    defaults: { _controller: AdminBundle:Default:ajax_NewsDelete }

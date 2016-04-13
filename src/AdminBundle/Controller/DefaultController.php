@@ -44,7 +44,7 @@ class DefaultController extends Controller
         return $this->render( 'AdminBundle:User:edit.html.twig', array( 'user' => $user, 'form' => $form->createView() ) );
     }
 
-    public function ajax_userPromoteAction( Request $request ) {
+    public function ajax_UserPromoteAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             $em = $this->getDoctrine()->getManager();
 
@@ -98,7 +98,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_userDeleteAction( Request $request ) {
+    public function ajax_UserDeleteAction( Request $request ) {
         // TODO : Meilleure gestion des erreurs (utilisateur n'existe pas, ...)
         if( $request->isXmlHttpRequest() ) {
             if( $this->get( 'security.authorization_checker' )->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
@@ -142,7 +142,7 @@ class DefaultController extends Controller
         return $this->render( 'AdminBundle:News:index.html.twig', array( 'array_news' => $array_news ) );
     }
     
-    public function ajax_newsAddAction( Request $request ) {
+    public function ajax_NewsAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             // TODO : Validation des données
             $em = $this->getDoctrine()->getManager();
@@ -169,7 +169,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_newsDeleteAction( Request $request ) {
+    public function ajax_NewsDeleteAction( Request $request ) {
         // TODO : Meilleure gestion des erreurs (news n'existe pas, ...)
         if( $request->isXmlHttpRequest() ) {
             try {
@@ -198,7 +198,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_newsGetAction( Request $request ) {
+    public function ajax_NewsGetAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
                 $em = $this->getDoctrine()->getManager();
@@ -225,7 +225,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_newsEditAction( Request $request ) {
+    public function ajax_NewsEditAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
                 $em = $this->getDoctrine()->getManager();
