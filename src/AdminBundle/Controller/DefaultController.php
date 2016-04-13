@@ -3,6 +3,7 @@
 namespace AdminBundle\Controller;
 
 use AdminBundle\Form\EditUser;
+use AdminBundle\Form\EditUserType;
 use MainBundle\Entity\News;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,7 @@ class DefaultController extends Controller
 
         $user = $userManager->findUserBy( array( 'id' => $id ) );
 
-        $form = $this->createForm( EditUser::class, $user );
+        $form = $this->createForm( EditUserType::class, $user );
 
         if( $form->isSubmitted() ) {
             $userManager->updateUser( $user );
