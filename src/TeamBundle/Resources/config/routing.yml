@@ -8,4 +8,4 @@ team_registration:
 
 team_player_ajax_add:
     path:     /player/ajax/add
-    defaults: { _controller: TeamBundle:Default:ajax_playerAdd }
+    defaults: { _controller: TeamBundle:Default:ajax_PlayerAdd }

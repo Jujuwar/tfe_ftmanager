@@ -53,7 +53,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute( 'team_homepage' );
     }
     
-    public function ajax_playerAddAction( Request $request ) {
+    public function ajax_PlayerAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             // TODO : Meilleure validation des données
 
