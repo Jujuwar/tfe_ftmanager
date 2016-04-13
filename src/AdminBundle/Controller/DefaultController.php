@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UserBundle\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DefaultController extends Controller
 {
@@ -44,7 +42,7 @@ class DefaultController extends Controller
         return $this->render( 'AdminBundle:User:edit.html.twig', array( 'user' => $user, 'form' => $form->createView() ) );
     }
 
-    public function ajax_UserPromoteAction( Request $request ) {
+    public function ajaxUserPromoteAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             $em = $this->getDoctrine()->getManager();
 
@@ -98,8 +96,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_UserDeleteAction( Request $request ) {
-        // TODO : Meilleure gestion des erreurs (utilisateur n'existe pas, ...)
+    public function ajaxUserDeleteAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             if( $this->get( 'security.authorization_checker' )->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
                 try {
@@ -107,10 +104,13 @@ class DefaultController extends Controller
 
                     $user = $em->getRepository( 'UserBundle:User' )->findOneById( $request->get( 'id' ) );
 
-                    $em->remove( $user );
-                    $em->flush();
+                    if( $user ) {
+                        $em->remove($user);
+                        $em->flush();
 
-                    $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                        $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                    } else
+                        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'L\'utilisateur n\'existe pas' ) ) );
 
                 }
                 catch( \Exception $e ) {
@@ -142,7 +142,7 @@ class DefaultController extends Controller
         return $this->render( 'AdminBundle:News:index.html.twig', array( 'array_news' => $array_news ) );
     }
     
-    public function ajax_NewsAddAction( Request $request ) {
+    public function ajaxNewsAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             // TODO : Validation des données
             $em = $this->getDoctrine()->getManager();
@@ -169,18 +169,21 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_NewsDeleteAction( Request $request ) {
-        // TODO : Meilleure gestion des erreurs (news n'existe pas, ...)
+    public function ajaxNewsDeleteAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
                 $em = $this->getDoctrine()->getManager();
 
                 $news = $em->getRepository( 'MainBundle:News' )->findOneById( $request->get( 'id' ) );
 
-                $em->remove( $news );
-                $em->flush();
+                if( $news ) {
+                    $em->remove( $news );
+                    $em->flush();
 
-                $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                    $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                } else
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'La news n\'existe pas' ) ) );
+
 
             }
             catch( \Exception $e ) {
@@ -198,7 +201,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_NewsGetAction( Request $request ) {
+    public function ajaxNewsGetAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
                 $em = $this->getDoctrine()->getManager();
@@ -225,7 +228,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function ajax_NewsEditAction( Request $request ) {
+    public function ajaxNewsEditAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
                 $em = $this->getDoctrine()->getManager();
