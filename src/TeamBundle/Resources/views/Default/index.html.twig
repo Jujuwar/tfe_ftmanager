@@ -1,1 +1,201 @@
-Hello World!
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Team
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Team</li>
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Gestion d'équipe</h1>
+    </div>
+
+    <div class="modal fade" id="addPlayer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Ajouter un joueur</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="addPlayerError"></div>
+
+                    <div class="form-horizontal">
+                        <div class="form-group row">
+                            <label class="form-control-label col-md-2" for="addPlayer_Number">Numéro</label>
+                            <div class="col-md-2">
+                                <input type="number" id="addPlayer_Number" placeholder="Numéro" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="form-control-label col-md-2" for="addPlayer_Surname">Nom</label>
+                            <div class="col-md-10">
+                                <input type="text" id="addPlayer_Surname" placeholder="Nom" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="form-control-label col-md-2" for="addPlayer_Name">Prénom</label>
+                            <div class="col-md-10">
+                                <input type="text" id="addPlayer_Name" placeholder="Prénom" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="form-control-label col-md-2" for="addPlayer_Birthday">Date de naissance</label>
+                            <div class="col-md-3">
+                                <input type="date" id="addPlayer_Birthday" placeholder="Date de naissance" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary addPlayer" data-team="{{ team.id }}"><i class="fa fa-plus"></i> Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="m-b-2">
+        <div class="col-md-4 bg-inverse p-a-2">
+            <i class="fa fa-tag"></i> {{ team.name }}
+        </div>
+
+        <div class="col-md-4 bg-inverse p-a-2">
+            <i class="fa fa-calendar"></i> {{ team.registrationDate | date("d/m/Y") }}
+        </div>
+
+        <div class="col-md-4 bg-inverse p-a-2">
+            {% if team.valid %}
+                <span class="text-success"><i class="fa fa-check"></i> Validée</span>
+            {% else %}
+                <span class="text-danger"><i class="fa fa-close"></i> Non validée</span>
+            {% endif %}
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <h2>Composition de l'équipe</h2>
+
+    <button class="btn btn-primary btn-lg pull-xs-right" data-toggle="modal" data-target="#addPlayer"><i class="fa fa-plus"></i> Ajouter un joueur</button>
+    <div class="clearfix"></div>
+    <table id="table_players" class="table m-t-1">
+        <thead class="thead-default">
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody class="table_players_tbody">
+            {% for player in players %}
+                {% include 'TeamBundle:Default:playerRow.html.twig' %}
+            {% else %}
+                <tr><td colspan="4"><i>Aucun joueur</i></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('.addPlayer').on('click', function() {
+            var modal = $('#addPlayer');
+
+            var button = $(this);
+
+            var team = button.data('team');
+            var number = modal.find('#addPlayer_Number').val();
+            var name = modal.find('#addPlayer_Name').val();
+            var surname = modal.find('#addPlayer_Surname').val();
+            // TODO : Datetime
+            var birthday = modal.find('#addPlayer_Birthday').val();
+
+            button.attr('disabled', 'disabled');
+
+            button.find('.fa').removeClass('fa-pencil fa-plus').addClass('fa-spinner fa-pulse');
+
+            if(button.data('edit')) {
+                var id = button.data('id');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('admin_news_ajax_edit') }}",
+                    data: {
+                        id: id,
+                        title: title,
+                        message: message
+                    },
+                    error: function (request, error) { // Info Debuggage si erreur
+                        console.log("Erreur : responseText: " + request.responseText);
+                    },
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                            modal.modal('hide');
+
+                            var line = $('tr[data-id="' + id + '"]');
+                            line.effect("highlight", {color: '#c9c9c9'}, 5000);
+                            line.children("td:nth-child(2)").html(title);
+
+                            $('.modal_alert_success').modal('show');
+                            setTimeout(function () {
+                                $(".modal_alert_success").modal('hide');
+                            }, 1700);
+                        } else {
+                            $('.addNewError').html(data.debug);
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('team_player_ajax_add') }}",
+                    data: {
+                        team: team,
+                        number: number,
+                        name: name,
+                        surname: surname,
+                        birthday: birthday
+                    },
+                    error: function (request, error) { // Info Debuggage si erreur
+                        console.log("Erreur : responseText: " + request.responseText);
+                    },
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                            modal.modal('hide');
+
+                            if ($('.table_players_tbody').find('tr td').length == 1)
+                                $('.table_players_tbody').find('tr td').remove();
+
+                            $('.table_players_tbody').append(data.return);
+
+                            $('.modal_alert_success').modal('show');
+                            setTimeout(function () {
+                                $(".modal_alert_success").modal('hide');
+                            }, 1700);
+                        } else {
+                            $('.addPlayerError').html(data.debug);
+                        }
+                    }
+                });
+            }
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Team • Création
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('team_homepage') }}">Team</a></li>
+    <li class="active">Création</li>
+{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    <div class="page-header">
+        <h1>Création d'une équipe</h1>
+    </div>
+
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

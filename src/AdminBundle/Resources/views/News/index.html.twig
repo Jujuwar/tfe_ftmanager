@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="page-header">
+    <div>
         <h1>Gestion des news</h1>
     </div>
 
@@ -52,6 +52,8 @@
         </div>
     </div>
 
+    <hr>
+
     <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#addNews"><i class="fa fa-pencil"></i> Ajouter une news</button>
     <div class="clearfix"></div>
 
@@ -86,7 +88,6 @@
         // TODO : Editeur WYSIWYG ?
 
         $('.addNews').on('click', function() {
-
             var modal = $('#addNews');
 
             var button = $(this);

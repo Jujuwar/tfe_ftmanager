@@ -3,6 +3,7 @@
 namespace TeamBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 /**
  * Team
@@ -31,7 +32,7 @@ class Team
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="registrationDate", type="time")
+     * @ORM\Column(name="registrationDate", type="datetime")
      */
     private $registrationDate;
 
@@ -41,6 +42,14 @@ class Team
      * @ORM\Column(name="valid", type="boolean")
      */
     private $valid;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="manager", referencedColumnName="id")
+     */
+    private $manager;
 
 
     /**
@@ -120,5 +129,28 @@ class Team
     public function getValid()
     {
         return $this->valid;
+    }
+
+    /**
+     * Set manager
+     *
+     * @param \UserBundle\Entity\User $manager
+     * @return Team
+     */
+    public function setManager(\UserBundle\Entity\User $manager = null)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    /**
+     * Get manager
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getManager()
+    {
+        return $this->manager;
     }
 }

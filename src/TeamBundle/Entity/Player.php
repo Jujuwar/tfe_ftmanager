@@ -36,9 +36,17 @@ class Player
     private $surname;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="number", type="integer")
+     */
+
+    private $number;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthday", type="time")
+     * @ORM\Column(name="birthday", type="datetime")
      */
     private $birthday;
 
@@ -49,7 +57,6 @@ class Player
      * @ORM\JoinColumn(name="team", referencedColumnName="id")
      */
     private $team;
-
 
     /**
      * Get id
@@ -151,5 +158,28 @@ class Player
     public function getTeam()
     {
         return $this->team;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     * @return Player
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer 
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 }

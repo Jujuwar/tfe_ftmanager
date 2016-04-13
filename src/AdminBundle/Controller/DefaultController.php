@@ -92,7 +92,7 @@ class DefaultController extends Controller
         }
 
         $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
-        $response->headers->set( 'Content-Type', 'application/json') ;
+        $response->headers->set( 'Content-Type', 'application/json');
 
         return $response;
     }
