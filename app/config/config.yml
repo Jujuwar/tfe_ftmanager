@@ -73,3 +73,5 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: UserBundle\Entity\User
+    group:
+        group_class: UserBundle\Entity\Group
