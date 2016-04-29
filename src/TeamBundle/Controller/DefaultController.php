@@ -13,15 +13,19 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        // TODO : Que faire si aucune équipe inscrite ?
         $user = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
 
         $team = $em->getRepository( 'TeamBundle:Team' )->findOneByManager( $user->getId() );
-        $players = $em->getRepository( 'TeamBundle:Player' )->findBy( array( 'team' => $team->getId() ) );
 
-        return $this->render( 'TeamBundle:Default:index.html.twig', array( 'team' => $team, 'players' => $players ) );
+        if($team) {
+            $players = $em->getRepository('TeamBundle:Player')->findBy(array('team' => $team->getId()));
+
+            return $this->render('TeamBundle:Default:index.html.twig', array('team' => $team, 'players' => $players));
+        } else // Si aucune équipe inscrite, on redirige sur la page pour en inscrire une
+            return $this->redirectToRoute( 'team_registration' );
+
     }
 
     public function registrationAction( Request $request ) {
@@ -53,7 +57,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute( 'team_homepage' );
     }
     
-    public function ajax_PlayerAddAction( Request $request ) {
+    public function ajaxPlayerAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             // TODO : Meilleure validation des données
 
@@ -81,6 +85,44 @@ class DefaultController extends Controller
         $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json');
         
+        return $response;
+    }
+
+    public function ajaxPlayerDeleteAction( Request $request ) {
+        // TODO : On supprime le joueur ou on lui enlève juste son équipe ?
+        if( $request->isXmlHttpRequest() ) {
+            try {
+                $user= $this->get( 'security.token_storage' )->getToken()->getUser();
+
+                $em = $this->getDoctrine()->getManager();
+
+                $player = $em->getRepository( 'TeamBundle:Player' )->findOneById( $request->get( 'id' ) );
+
+                if( $player->getTeam()->getManager() == $user ) {
+
+                    if ($player) {
+                        $em->remove($player);
+                        $em->flush();
+
+                        $response = new Response(json_encode(array('status' => 'ok')));
+                    } else
+                        $response = new Response(json_encode(array('status' => 'ko', 'debug' => 'Le joueur n\'existe pas')));
+                } else
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Vous n\'avez pas la permission de supprimer ce joueur' ) ) );
+
+            }
+            catch( \Exception $e ) {
+                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+            }
+
+            $response->headers->set( 'Content-Type', 'application/json' );
+
+            return $response;
+        }
+
+        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response->headers->set( 'Content-Type', 'application/json') ;
+
         return $response;
     }
 }

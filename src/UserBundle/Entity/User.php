@@ -53,3 +53,4 @@ class User extends BaseUser implements EquatableInterface
         return false;
     }
 }
+

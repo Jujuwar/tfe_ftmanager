@@ -1,9 +1,14 @@
-<tr>
+<tr data-id="{{ player.id }}">
     <td>{{ player.number }}</td>
     <td>{{ player.surname }}</td>
     <td>{{ player.name }}</td>
     <td>{{ player.birthday | date("d/m/Y") }}</td>
     <td>
-
+        <div class="btn-toolbar" role="toolbar" aria-label="Outils">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Edition">
+                <button type="button" class="btn btn-secondary" data-action="delete" data-id="{{ player.id }}"><i class="fa fa-trash"></i></button>
+                <button type="button" class="btn btn-secondary" data-action="edit" data-id="{{ player.id }}"><i class="fa fa-pencil"></i></button>
+            </div>
+        </div>
     </td>
 </tr>

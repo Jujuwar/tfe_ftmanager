@@ -59,7 +59,7 @@ class DefaultController extends Controller
 
                 return $response;
             } else {
-                // TODO : Vérifier les différents groupes à supprimer
+                // TODO : Vérifier les différents rôles à supprimer. Autant passer par des groupes ...
                 switch( $request->get( 'role' ) ) {
                     case 'sup_admin':
                         $user->addRole( 'ROLE_SUPER_ADMIN' );
@@ -74,7 +74,7 @@ class DefaultController extends Controller
                         break;
 
                     case 'member':
-                        // TODO
+                        $user->addRole( 'ROLE_USER' );
                         break;
 
                 }
