@@ -1,15 +1,15 @@
 team_homepage:
     path:     /
-    defaults: { _controller: TeamBundle:Default:index }
+    defaults: { _controller: TeamBundle:Team:index }
 
 team_registration:
     path:     /registration
-    defaults: { _controller: TeamBundle:Default:registration }
+    defaults: { _controller: TeamBundle:Team:registration }
 
 team_player_ajax_add:
     path:     /player/ajax/add
-    defaults: { _controller: TeamBundle:Default:ajaxPlayerAdd }
+    defaults: { _controller: TeamBundle:Player:ajaxAdd }
 
 team_player_ajax_delete:
     path:     /player/ajax/delete
-    defaults: { _controller: TeamBundle:Default:ajaxPlayerDelete }
+    defaults: { _controller: TeamBundle:Player:ajaxDelete }
