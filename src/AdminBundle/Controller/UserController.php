@@ -4,7 +4,6 @@ namespace AdminBundle\Controller;
 
 use AdminBundle\Form\EditUser;
 use AdminBundle\Form\EditUserType;
-use MainBundle\Entity\News;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -52,7 +51,9 @@ class UserController extends Controller
 
                 return $response;
             } else {
-                // TODO : Vérifier les différents rôles à supprimer. Autant passer par des groupes ...
+                foreach( $user->getRoles() as $k => $v )
+                    $user->removeRole( $v );
+
                 switch( $request->get( 'role' ) ) {
                     case 'sup_admin':
                         $user->addRole( 'ROLE_SUPER_ADMIN' );
@@ -75,7 +76,7 @@ class UserController extends Controller
                 $em->persist( $user );
                 $em->flush();
 
-                $response = new Response( json_encode( array( 'status' => 'ok', 'debug' => $user->hasRole( 'ROLE_ADMIN') ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:User:userRow.html.twig', array( 'user' => $user ) )->getContent() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json') ;

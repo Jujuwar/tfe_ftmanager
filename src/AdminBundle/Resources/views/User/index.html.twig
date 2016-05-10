@@ -45,8 +45,6 @@
             var id = $(this).data('id');
             var role = $(this).data('role');
 
-            console.log(role);
-
             $.ajax({
                 type: 'POST',
                 url: "{{ path('admin_users_ajax_promote') }}",
@@ -59,16 +57,10 @@
                 },
                 success: function (data) {
                     if(data.status == 'ok') {
-                        /*$('tr[data-id="' + id + '"]').fadeOut(1500, "easeOutExpo", function() {
-                            $(this).remove();
-                            if($('.table_users_tbody tr').length == 0) {
-                                $('.table_users_tbody').append(
-                                        $('<tr>').append(
-                                                $('<td>').attr('colspan', '5').html('<i>Aucun utilisateur</i>')
-                                        )
-                                );
-                            }
-                        });*/
+                        var line = $('tr[data-id="' + id + '"]');
+                        line.replaceWith(data.return);
+                        line.effect("highlight", {color: '#c9c9c9'}, 5000);
+
                         $('.modal_alert_success').modal('show');
                         setTimeout(function(){
                             $(".modal_alert_success").modal('hide');
