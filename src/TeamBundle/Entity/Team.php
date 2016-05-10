@@ -46,7 +46,7 @@ class Team
     /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="team")
      * @ORM\JoinColumn(name="manager", referencedColumnName="id")
      */
     private $manager;
