@@ -12,11 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-    public function getTeam( $id ) {
-        $em = $this->getEntityManager();
-
-        $team = $em->getRepository( 'TeamBundle:Team' )->findOneByManager( $id );
-
-        return $team;
-    }
 }

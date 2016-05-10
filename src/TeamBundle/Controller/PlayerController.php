@@ -51,7 +51,7 @@ class PlayerController extends Controller
 
                 if( $player->getTeam()->getManager() == $user ) {
 
-                    if ($player) {
+                    if( $player ) {
                         $player->setTeam(null);
                         $em->flush();
 

@@ -187,6 +187,9 @@
     <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
     <script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>
 
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
     {% javascripts '@MainBundle/Resources/assets/js/tether.min.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

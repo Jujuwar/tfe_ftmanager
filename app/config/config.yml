@@ -75,3 +75,6 @@ fos_user:
     user_class: UserBundle\Entity\User
     group:
         group_class: UserBundle\Entity\Group
+
+fos_js_routing:
+    routes_to_expose: [ (.*) ]

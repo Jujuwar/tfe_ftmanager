@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use MainBundle\Entity\News;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class NewsController extends Controller
 {
@@ -84,8 +86,12 @@ class NewsController extends Controller
 
                 $news = $em->getRepository( 'MainBundle:News' )->findOneById( $request->get( 'id' ) );
 
-                $serializer = $this->get('serializer');
-                $news = $serializer->normalize($news);
+                $normalizer  = new ObjectNormalizer();;
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+                $serializer = new Serializer( array( $normalizer ) );
+                $news = $serializer->normalize( $news );
 
                 $response = new Response( json_encode( array( 'status' => 'ok', 'news' => $news ) ) );
             }
