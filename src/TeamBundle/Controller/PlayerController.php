@@ -22,9 +22,8 @@ class PlayerController extends Controller
             $player->setNumber( $request->get( 'number' ) );
             $player->setName( $request->get( 'name' ) );
             $player->setSurname( $request->get( 'surname' ) );
-            // TODO : Datetime
-            $player->setBirthday( new \DateTime() );
-
+            $player->setBirthday( \DateTime::createFromFormat( 'd/m/Y', $request->get( 'birthday' ) ) );
+            
             $em->persist($player);
             $em->flush();
 
@@ -52,12 +51,12 @@ class PlayerController extends Controller
                 if( $player->getTeam()->getManager() == $user ) {
 
                     if( $player ) {
-                        $player->setTeam(null);
+                        $player->setTeam( null );
                         $em->flush();
 
-                        $response = new Response(json_encode(array('status' => 'ok')));
+                        $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
                     } else
-                        $response = new Response(json_encode(array('status' => 'ko', 'debug' => 'Le joueur n\'existe pas')));
+                        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Le joueur n\'existe pas' ) ) );
                 } else
                     $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Vous n\'avez pas la permission de supprimer ce joueur' ) ) );
 

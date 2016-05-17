@@ -9,6 +9,13 @@
     <li class="active">Team</li>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@MainBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <div>
         <h1>Gestion d'équipe</h1>
@@ -51,7 +58,7 @@
                         <div class="form-group row">
                             <label class="form-control-label col-md-2" for="addPlayer_Birthday">Date de naissance</label>
                             <div class="col-md-3">
-                                <input type="date" id="addPlayer_Birthday" placeholder="Date de naissance" class="form-control">
+                                <input type="text" id="addPlayer_Birthday" placeholder="Date de naissance" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -117,7 +124,23 @@
 
     {% javascripts output='js/compiled/team.js'
         '@TeamBundle/Resources/public/js/player.js'
+        '@MainBundle/Resources/public/js/moment.js'
+        '@MainBundle/Resources/public/js/moment-with-locales.js'
+        '@MainBundle/Resources/public/js/bootstrap-datetimepicker.js'
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#addPlayer_Birthday').datetimepicker({
+                locale : 'fr',
+                viewMode: 'years',
+                enabledHours : [],
+                maxDate : 'now',
+                format: 'DD/MM/YYYY',
+                useCurrent : false
+            });
+        });
+    </script>
 {% endblock %}
