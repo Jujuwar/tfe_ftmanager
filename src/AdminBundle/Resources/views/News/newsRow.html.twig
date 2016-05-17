@@ -3,7 +3,13 @@
     <td>{{ news.title }}</td>
     <td>{{ news.publishDate | date("d/m/Y - H:i") }}</td>
     <td>{{ news.author.username }}</td>
-    <td>{% if news.publishDate > date() %} <span class="label label-info">Programée</span> {% else %} <span class="label label-success">Publiée</span> {% endif %}</td>
+    <td>
+        {% if news.publishDate > date() %}
+            <span class="label label-info">Programée</span>
+        {% else %}
+            <span class="label label-success">Publiée</span>
+        {% endif %}
+    </td>
     <td>
         <div class="btn-toolbar" role="toolbar" aria-label="Outils">
             <div class="btn-group btn-group-sm" role="group" aria-label="Edition">

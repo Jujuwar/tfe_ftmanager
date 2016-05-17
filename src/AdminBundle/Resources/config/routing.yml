@@ -1,43 +1,54 @@
 admin_homepage:
     path:     /
-    defaults: { _controller: AdminBundle:Default:index }
+    defaults: { _controller: 'AdminBundle:Default:index' }
 
 # Gestion des utilisateurs
 
 admin_users:
     path:     /users
-    defaults: { _controller: AdminBundle:User:index }
+    defaults: { _controller: 'AdminBundle:User:index' }
 
 admin_users_edit:
     path:     /users/edit/{id}
-    defaults: { _controller: AdminBundle:User:edit }
+    defaults: { _controller: 'AdminBundle:User:edit' }
 
 admin_users_ajax_promote:
     path:     /users/ajax/promote
-    defaults: { _controller: AdminBundle:User:ajaxPromote }
+    defaults: { _controller: 'AdminBundle:User:ajaxPromote' }
 
 admin_users_ajax_delete:
     path:     /users/ajax/delete
-    defaults: { _controller: AdminBundle:User:ajaxDelete }
+    defaults: { _controller: 'AdminBundle:User:ajaxDelete' }
 
 # Gestion des news
 
 admin_news:
     path:     /news
-    defaults: { _controller: AdminBundle:News:index }
+    defaults: { _controller: 'AdminBundle:News:index' }
 
 admin_news_ajax_get:
     path:     /news/ajax/get
-    defaults: { _controller: AdminBundle:News:ajaxGet }
+    defaults: { _controller: 'AdminBundle:News:ajaxGet' }
 
 admin_news_ajax_add:
     path:     /news/ajax/add
-    defaults: { _controller: AdminBundle:News:ajaxAdd }
+    defaults: { _controller: 'AdminBundle:News:ajaxAdd' }
 
 admin_news_ajax_edit:
     path:     /news/ajax/edit
-    defaults: { _controller: AdminBundle:News:ajaxEdit }
+    defaults: { _controller: 'AdminBundle:News:ajaxEdit' }
 
 admin_news_ajax_delete:
     path:     /news/ajax/delete
-    defaults: { _controller: AdminBundle:News:ajaxDelete }
+    defaults: { _controller: 'AdminBundle:News:ajaxDelete' }
+
+
+# Gestion des teams
+
+admin_teams:
+    path:     /teams
+    defaults: { _controller: 'AdminBundle:Team:index' }
+
+admin_teams_ajax_delete:
+    path:     /teams/ajax/delete
+    defaults: { _controller: 'AdminBundle:Team:ajaxDelete' }
