@@ -52,3 +52,7 @@ admin_teams:
 admin_teams_ajax_delete:
     path:     /teams/ajax/delete
     defaults: { _controller: 'AdminBundle:Team:ajaxDelete' }
+
+admin_teams_ajax_validate:
+    path:     /teams/ajax/validate
+    defaults: { _controller: 'AdminBundle:Team:ajaxValidate' }

@@ -14,6 +14,7 @@
             <div class="btn-group btn-group-sm" role="group" aria-label="Edition">
                 <button type="button" class="btn btn-secondary" data-action="delete" data-id="{{ team.id }}"><i class="fa fa-trash"></i></button>
                 <button type="button" class="btn btn-secondary" data-action="edit" data-id="{{ team.id }}"><i class="fa fa-pencil"></i></button>
+                <button type="button" class="btn btn-secondary" data-action="validate" data-id="{{ team.id }}" data-toggle="tooltip" title="Valider ou invalider l'équipe"><i class="fa fa-{% if not team.valid %}check{% else %}remove{% endif %}"></i></button>
             </div>
         </div>
     </td>
