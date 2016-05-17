@@ -30,7 +30,7 @@ class TeamController extends Controller
     public function registrationAction( Request $request ) {
         $user = $this->getUser();
 
-        if( !empty( $user ) && empty( $this->getDoctrine()->getRepository( 'UserBundle:User' )->getTeam( $user->getId() ) ) ) {
+        if( !empty( $user ) && empty( $user->getTeam() ) ) {
             $em = $this->getDoctrine()->getManager();
 
             $team = new Team();
@@ -48,7 +48,7 @@ class TeamController extends Controller
                 $em->persist($team);
                 $em->flush();
 
-                $this->redirectToRoute('team_homepage');
+                return $this->redirectToRoute('team_homepage');
             }
 
             return $this->render('TeamBundle:Default:registration.html.twig', array('form' => $form->createView()));

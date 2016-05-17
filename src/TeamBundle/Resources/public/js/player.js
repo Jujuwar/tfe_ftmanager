@@ -7,7 +7,6 @@ $('.addPlayer').on('click', function() {
     var number = modal.find('#addPlayer_Number').val();
     var name = modal.find('#addPlayer_Name').val();
     var surname = modal.find('#addPlayer_Surname').val();
-    // TODO : Datetime
     var birthday = modal.find('#addPlayer_Birthday').val();
 
     button.attr('disabled', 'disabled');
