@@ -32,6 +32,7 @@ $('.addNews').on('click', function() {
 
                     var line = $('tr[data-id="' + id + '"]');
                     line.replaceWith(data.return);
+                    line = $('tr[data-id="' + id + '"]');
                     line.effect("highlight", {color: '#c9c9c9'}, 5000);
 
                     $('.modal_alert_success').modal('show');

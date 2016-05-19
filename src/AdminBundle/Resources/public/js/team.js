@@ -63,6 +63,7 @@ $('.table_teams_tbody').on('click', 'button[data-action="validate"]', function()
             if(data.status == 'ok') {
                 var line = $('tr[data-id="' + id + '"]');
                 line.replaceWith(data.return);
+                line = $('tr[data-id="' + id + '"]');
                 line.effect("highlight", {color: '#c9c9c9'}, 5000);
 
                 $('.modal_alert_success').modal('show');
