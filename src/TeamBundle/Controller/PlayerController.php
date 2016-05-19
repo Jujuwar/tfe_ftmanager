@@ -35,7 +35,7 @@ class PlayerController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès non autorisé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json');
 
         return $response;
@@ -58,13 +58,13 @@ class PlayerController extends Controller
 
                         $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
                     } else
-                        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Le joueur n\'existe pas' ) ) );
+                        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Le joueur n\'existe pas', 'debug' => 'Le joueur n\'existe pas' ) ) );
                 } else
-                    $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Vous n\'avez pas la permission de supprimer ce joueur' ) ) );
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Vous n\'avez pas la permission de supprimer ce joueur', 'debug' => 'Vous n\'avez pas la permission de supprimer ce joueur' ) ) );
 
             }
             catch( \Exception $e ) {
-                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json' );
@@ -72,7 +72,7 @@ class PlayerController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès non autorisé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;
@@ -95,7 +95,7 @@ class PlayerController extends Controller
                 $response = new Response( json_encode( array( 'status' => 'ok', 'player' => $player ) ) );
             }
             catch( \Exception $e ) {
-                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json' );
@@ -103,7 +103,7 @@ class PlayerController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès non autorisé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;

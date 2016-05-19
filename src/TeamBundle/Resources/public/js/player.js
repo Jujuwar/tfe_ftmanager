@@ -42,7 +42,7 @@ $('.addPlayer').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addNewError').html(data.debug);
+                    $('.addPlayerError').html(data.message);
                 }
             }
         });
@@ -74,7 +74,7 @@ $('.addPlayer').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addPlayerError').html(data.debug);
+                    $('.addPlayerError').html(data.message);
                 }
             }
         });
@@ -110,8 +110,9 @@ $('.modal-confirmation-yes').on('click', function() {
                     $(".modal_alert_success").modal('hide');
                 }, 1700);
             } else {
-                $('.modal-body-more-info').html(data.debug);
+                $('.modal-body-more-info').html(data.message);
                 $('.modal_alert_error').modal('show');
+                console.log(data.debug);
             }
         }
     });
@@ -153,8 +154,9 @@ $('.table_players_tbody').on('click', 'button[data-action="edit"]', function() {
                 modal.find('.addPlayer').data('id', id).data('edit', '1');
                 modal.modal('show');
             } else {
-                $('.modal-body-more-info').html(data.debug);
+                $('.modal-body-more-info').html(data.message);
                 $('.modal_alert_error').modal('show');
+                console.log(data.debug);
             }
         }
     });
