@@ -1,12 +1,10 @@
-// TODO : Editeur WYSIWYG ?
-
 $('.addNews').on('click', function() {
     var modal = $('#addNews');
 
     var button = $(this);
 
     var title = modal.find('#addNew_Title').val();
-    var message = modal.find('#addNew_Message').val();
+    var message = tinyMCE.activeEditor.getContent();
     var date = modal.find('#addNew_Date').val();
 
     button.attr('disabled', 'disabled');

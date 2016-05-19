@@ -52,10 +52,11 @@
                             </div>
                         </div>
 
+                        {{ tinymce_init() }}
                         <div class="form-group row">
                             <label class="form-control-label col-md-2" for="addNew_Message">Message</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" id="addNew_Message" rows="5" placeholder="Message"></textarea>
+                                <textarea class="form-control tinymce" id="addNew_Message" rows="5" placeholder="Message"></textarea>
                             </div>
                         </div>
                     </div>
