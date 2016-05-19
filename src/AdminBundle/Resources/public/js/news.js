@@ -83,6 +83,7 @@ $('#addNews').on('hide.bs.modal', function() {
 
     $(this).find('#addNew_Title').val('');
     $(this).find('#addNew_Message').val('');
+    $(this).find('#addNew_Date').val('');
     $(this).find('.modal-title').html("Ajouter une news");
 
     button.find('.fa').removeClass('fa-pencil fa-pulse fa-spinner').addClass('fa-plus');
@@ -151,7 +152,7 @@ $('.table_news_tbody').on('click', 'button[data-action="edit"]', function() {
             if(data.status == 'ok') {
                 modal.find('#addNew_Title').val(data.news.title);
                 modal.find('#addNew_Message').val(data.news.message);
-                modal.find('#addNew_Date').val(moment.unix(data.news.publishDate.timestamp).format("DD/MM/YYYY HH:MM"));
+                modal.find('#addNew_Date').val(moment.unix(data.news.publishDate.timestamp).format("DD/MM/YYYY HH:mm"));
 
                 modal.find('.modal-title').html("Modification d'une news");
                 modal.find('.fa-plus').removeClass('fa-plus').addClass('fa-pencil');
