@@ -9,6 +9,14 @@
     <li class="active">News</li>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets '@MainBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <div>
         <h1>Gestion des news</h1>
@@ -34,7 +42,15 @@
                             </div>
                         </div>
 
-                        <!-- TODO : Datetimepicker -->
+                        <div class="form-group row">
+                            <label class="form-control-label col-md-2" for="addNew_Date">Date de publication</label>
+                            <div class="col-md-10">
+                                <input type="text" id="addNew_Date" placeholder="Date de publication" class="form-control">
+                            </div>
+                            <p class="help-block">
+                                Laissez ce champs vide pour utiliser la date et l'heure actuelle
+                            </p>
+                        </div>
 
                         <div class="form-group row">
                             <label class="form-control-label col-md-2" for="addNew_Message">Message</label>
@@ -85,8 +101,21 @@
     {{ parent() }}
 
     {% javascripts output='js/compiled/news.js'
-    '@AdminBundle/Resources/public/js/news.js'
+        '@AdminBundle/Resources/public/js/news.js'
+        '@MainBundle/Resources/public/js/moment.js'
+        '@MainBundle/Resources/public/js/moment-with-locales.js'
+        '@MainBundle/Resources/public/js/bootstrap-datetimepicker.js'
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script type="application/javascript">
+        $(function () {
+            $('#addNew_Date').datetimepicker({
+                locale : 'fr',
+                format: 'DD/MM/YYYY HH:mm',
+                useCurrent : false
+            });
+        });
+    </script>
 {% endblock %}

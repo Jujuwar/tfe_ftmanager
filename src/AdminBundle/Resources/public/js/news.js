@@ -7,6 +7,7 @@ $('.addNews').on('click', function() {
 
     var title = modal.find('#addNew_Title').val();
     var message = modal.find('#addNew_Message').val();
+    var date = modal.find('#addNew_Date').val();
 
     button.attr('disabled', 'disabled');
 
@@ -21,7 +22,8 @@ $('.addNews').on('click', function() {
             data: {
                 id: id,
                 title: title,
-                message: message
+                message: message,
+                date: date
             },
             error: function (request, error) { // Info Debuggage si erreur
                 console.log("Erreur : responseText: " + request.responseText);
@@ -49,7 +51,8 @@ $('.addNews').on('click', function() {
             url: Routing.generate('admin_news_ajax_add'),
             data: {
                 title: title,
-                message: message
+                message: message,
+                date: date
             },
             error: function (request, error) { // Info Debuggage si erreur
                 console.log("Erreur : responseText: " + request.responseText);
@@ -148,6 +151,7 @@ $('.table_news_tbody').on('click', 'button[data-action="edit"]', function() {
             if(data.status == 'ok') {
                 modal.find('#addNew_Title').val(data.news.title);
                 modal.find('#addNew_Message').val(data.news.message);
+                modal.find('#addNew_Date').val(moment.unix(data.news.publishDate.timestamp).format("DD/MM/YYYY HH:MM"));
 
                 modal.find('.modal-title').html("Modification d'une news");
                 modal.find('.fa-plus').removeClass('fa-plus').addClass('fa-pencil');

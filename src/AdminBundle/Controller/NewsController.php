@@ -28,9 +28,9 @@ class NewsController extends Controller
 
             $news = new News();
             $news->setAuthor( $user );
-            $news->setTitle( $request->get('title') );
-            $news->setMessage( $request->get('message') );
-            $news->setPublishDate( new \DateTime() );
+            $news->setTitle( $request->get( 'title' ) );
+            $news->setMessage( $request->get( 'message' ) );
+            $news->setPublishDate( empty( $request->get( 'date' ) ) ? new \DateTime() : \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
             $em->persist( $news );
             $em->flush();
@@ -119,6 +119,7 @@ class NewsController extends Controller
 
                 $news->setTitle( $request->get( 'title' ) );
                 $news->setMessage( $request->get( 'message' ) );
+                $news->setPublishDate( \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
                 $em->flush();
 
