@@ -123,7 +123,7 @@ class NewsController extends Controller
 
                 $em->flush();
 
-                $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news ) )->getContent() ) ) );
             }
             catch( \Exception $e ) {
                 $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );

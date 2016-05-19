@@ -33,8 +33,8 @@ $('.addNews').on('click', function() {
                     modal.modal('hide');
 
                     var line = $('tr[data-id="' + id + '"]');
+                    line.replaceWith(data.return);
                     line.effect("highlight", {color: '#c9c9c9'}, 5000);
-                    line.children("td:nth-child(2)").html(title);
 
                     $('.modal_alert_success').modal('show');
                     setTimeout(function () {
