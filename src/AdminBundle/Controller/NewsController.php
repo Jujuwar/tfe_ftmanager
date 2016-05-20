@@ -41,7 +41,7 @@ class NewsController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès refusé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;
@@ -65,7 +65,7 @@ class NewsController extends Controller
 
             }
             catch( \Exception $e ) {
-                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json' );
@@ -73,7 +73,7 @@ class NewsController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès refusé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;
@@ -96,7 +96,7 @@ class NewsController extends Controller
                 $response = new Response( json_encode( array( 'status' => 'ok', 'news' => $news ) ) );
             }
             catch( \Exception $e ) {
-                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json' );
@@ -104,7 +104,7 @@ class NewsController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès refusé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;
@@ -126,7 +126,7 @@ class NewsController extends Controller
                 $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news ) )->getContent() ) ) );
             }
             catch( \Exception $e ) {
-                $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => $e->getMessage() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
             }
 
             $response->headers->set( 'Content-Type', 'application/json' );
@@ -134,7 +134,7 @@ class NewsController extends Controller
             return $response;
         }
 
-        $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Bad request' ) ) );
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès refusé', 'debug' => 'Bad request' ) ) );
         $response->headers->set( 'Content-Type', 'application/json') ;
 
         return $response;

@@ -127,8 +127,10 @@ $('.modal-confirmation-yes').on('click', function() {
                     $(".modal_alert_success").modal('hide');
                 }, 1700);
             } else {
-                $('.modal-body-more-info').html(data.debug);
+                $('.modal-body-more-info').html(data.message);
                 $('.modal_alert_error').modal('show');
+
+                console.log(data.debug);
             }
         }
     });
@@ -159,8 +161,10 @@ $('.table_news_tbody').on('click', 'button[data-action="edit"]', function() {
                 modal.find('.addNews').data('id', id).data('edit', '1');
                 modal.modal('show');
             } else {
-                $('.modal-body-more-info').html(data.debug);
+                $('.modal-body-more-info').html(data.message);
                 $('.modal_alert_error').modal('show');
+
+                console.log(data.debug);
             }
         }
     });
