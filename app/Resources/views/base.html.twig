@@ -55,7 +55,7 @@
                         <li class="nav-item {% if app.request.attributes.get('_route') matches '{^admin_.*$}' %}active{% endif %} dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lock"></i> Administration</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item">Se reconnecter</a>
+                                <a href="{{ path('fos_user_security_login') }}" class="dropdown-item">Se reconnecter</a>
                             </div>
                         </li>
                     {% endif %}
@@ -135,21 +135,7 @@
         <div class="modal fade modal_connect" tabindex="-1" role="dialog" aria-labelledby="modalAlertSuccess" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title">Connexion</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <!-- TODO : Champs de connexion -->
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger-outline" data-dismiss="modal">Non</button>
-                        <button type="button" class="btn btn-primary-outline" data-dismiss="modal">Oui</button>
-                    </div>
+                    {% include '@User/loginpopup.html.twig' %}
                 </div>
             </div>
         </div>
