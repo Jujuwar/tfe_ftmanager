@@ -10,17 +10,19 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 
         <label for="username">Email</label>
-        <input type="text" id="username" name="_username" class="form-control" value="" required="required" />
+        <input type="email" id="username" name="_username" class="form-control" placeholder="Email" required="required" />
 
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" class="form-control" name="_password" required="required" />
+        <input type="password" id="password" class="form-control" name="_password" placeholder="Mot de passe" required="required" />
 
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">Se souvenir de moi</label>
+        <label for="remember_me">
+            <input type="checkbox" id="remember_me" name="_remember_me" checked />
+            Se souvenir de moi
+        </label>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger-outline" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger-outline btn-sm" data-dismiss="modal">Annuler</button>
         <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="Se connecter" />
     </div>
 </form>
