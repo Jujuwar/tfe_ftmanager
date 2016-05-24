@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Gestion de la configuration
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Gestion de la configuration</li>
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-4">
+        <div class="card card-block">
+            <h4 class="card-title">Serveur Web</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Link</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-block">
+            <h4 class="card-title">Serveur SQL</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Link</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-block">
+            <h4 class="card-title">Serveur</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Link</a>
+        </div>
+    </div>
+
+    {% include 'AdminBundle:Config:date.html.twig' %}
+{% endblock %}
