@@ -130,17 +130,4 @@
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
-    <script type="text/javascript">
-        $(function () {
-            $('#addPlayer_Birthday').datetimepicker({
-                locale : 'fr',
-                viewMode: 'years',
-                enabledHours : [],
-                maxDate : 'now',
-                format: 'DD/MM/YYYY',
-                useCurrent : false
-            });
-        });
-    </script>
 {% endblock %}

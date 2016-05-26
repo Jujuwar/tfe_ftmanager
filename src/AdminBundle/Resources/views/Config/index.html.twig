@@ -9,6 +9,14 @@
     <li class="active">Gestion de la configuration</li>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets '@MainBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <div class="col-md-4">
         <div class="card card-block">
@@ -38,4 +46,17 @@
     </div>
 
     {% include 'AdminBundle:Config:date.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/compiled/news.js'
+        '@AdminBundle/Resources/public/js/config.js'
+        '@MainBundle/Resources/public/js/moment.js'
+        '@MainBundle/Resources/public/js/moment-with-locales.js'
+        '@MainBundle/Resources/public/js/bootstrap-datetimepicker.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

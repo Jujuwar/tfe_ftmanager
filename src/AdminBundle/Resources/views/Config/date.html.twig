@@ -3,21 +3,25 @@
 <hr>
 
 <div class="row">
-    <div class="row">
-        <div class="col-md-6">
-            <fieldset class="form-group">
-                <label for="date_start_inscription">Début des inscriptions</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                <small class="text-muted">We'll never share your email with anyone else.</small>
-            </fieldset>
-        </div>
+    <div class="col-md-6">
+        <fieldset class="form-group">
+            <label for="date_start_registration">Début des inscriptions</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                <input type="text" class="form-control" id="date_start_inscription" placeholder="Début des inscriptions" value="{{ configs["start_registration"].value }}">
+            </div>
+        </fieldset>
+    </div>
 
-        <div class="col-md-6">
-            <fieldset class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                <small class="text-muted">We'll never share your email with anyone else.</small>
-            </fieldset>
-        </div>
+    <div class="col-md-6">
+        <fieldset class="form-group">
+            <label for="date_end_registration">Fin des inscriptions</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                <input type="text" class="form-control" id="date_end_registration" placeholder="Fin des inscriptions" value="{{ configs["end_registration"].value }}">
+            </div>
+        </fieldset>
     </div>
 </div>
+
+

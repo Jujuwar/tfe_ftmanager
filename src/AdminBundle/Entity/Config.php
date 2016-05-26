@@ -31,7 +31,7 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="blob", length=65535, nullable=true)
+     * @ORM\Column(name="value", type="text", length=65535, nullable=true)
      */
     private $value;
 

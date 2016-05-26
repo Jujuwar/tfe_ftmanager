@@ -62,3 +62,7 @@ admin_teams_ajax_validate:
 admin_config:
     path:     /config
     defaults: { _controller: 'AdminBundle:Config:index' }
+
+admin_config_ajax_editDate:
+    path:     /config/ajax/editdate
+    defaults: { _controller: 'AdminBundle:Config:ajaxEditDate' }

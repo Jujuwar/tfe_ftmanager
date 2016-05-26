@@ -22,20 +22,26 @@ class NewsController extends Controller
 
     public function ajaxAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
-            // TODO : Validation des données
-            $em = $this->getDoctrine()->getManager();
-            $user= $this->get( 'security.token_storage' )->getToken()->getUser();
+            try {
+                // TODO : Validation des données
+                $em = $this->getDoctrine()->getManager();
+                $user = $this->get('security.token_storage')->getToken()->getUser();
 
-            $news = new News();
-            $news->setAuthor( $user );
-            $news->setTitle( $request->get( 'title' ) );
-            $news->setMessage( $request->get( 'message' ) );
-            $news->setPublishDate( empty( $request->get( 'date' ) ) ? new \DateTime() : \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
+                $news = new News();
+                $news->setAuthor( $user );
+                $news->setTitle( $request->get( 'title' ) );
+                $news->setMessage( $request->get( 'message' ) );
+                $news->setPublishDate( empty( $request->get( 'date' ) ) ? new \DateTime() : \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
-            $em->persist( $news );
-            $em->flush();
+                $em->persist( $news );
+                $em->flush();
 
-            $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news, 'loop' => array( 'index' => '-' ) ) )->getContent() ) ) );
+                $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news, 'loop' => array( 'index' => '-' ) ) )->getContent() ) ) );
+            }
+            catch( \Exception $e ) {
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
+            }
+
             $response->headers->set( 'Content-Type', 'application/json' );
 
             return $response;

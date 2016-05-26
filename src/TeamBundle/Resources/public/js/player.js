@@ -1,3 +1,25 @@
+$(function () {
+    $('#addPlayer_Birthday').datetimepicker({
+        locale : 'fr',
+        viewMode: 'years',
+        enabledHours : [],
+        maxDate : 'now',
+        format: 'DD/MM/YYYY',
+        useCurrent : false,
+        icons: {
+            time: 'fa fa-clock-o',
+            date: 'fa fa-calendar',
+            up: 'fa fa-chevron-up',
+            down: 'fa fa-chevron-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove'
+        }
+    });
+});
+
 $('.addPlayer').on('click', function() {
     var modal = $('#addPlayer');
 

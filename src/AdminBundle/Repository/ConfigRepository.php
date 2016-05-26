@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConfigRepository extends EntityRepository
 {
+    function getAll() {
+        $query = $this->createQueryBuilder('c')
+            ->select('s')
+            ->from('AdminBundle:Config', 's', 's.name');
+        
+        $result = $query->getQuery()->getResult();
+
+        return $result;
+    }
 }
