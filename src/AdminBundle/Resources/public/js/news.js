@@ -59,7 +59,9 @@ $('.addNews').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addNewError').html(data.debug);
+                    $('.addNewError').removeClass('hidden-xs-up').html('<h4>' + data.message + '</h4>' + data.errors);
+                    button.find('.fa').removeClass('fa-pulse fa-spinner').addClass('fa-pencil');
+                    button.removeAttr('disabled');
                 }
             }
         });
@@ -89,7 +91,9 @@ $('.addNews').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addNewError').html(data.debug);
+                    $('.addNewError').removeClass('hidden-xs-up').html('<h4>' + data.message + '</h4>' + data.errors);
+                    button.find('.fa').removeClass('fa-pulse fa-spinner').addClass('fa-plus');
+                    button.removeAttr('disabled');
                 }
             }
         });
@@ -100,9 +104,11 @@ $('#addNews').on('hide.bs.modal', function() {
     var button = $(this).find('.addNews');
 
     $(this).find('#addNew_Title').val('');
-    $(this).find('#addNew_Message').val('');
+    tinyMCE.activeEditor.setContent('');
     $(this).find('#addNew_Date').val('');
     $(this).find('.modal-title').html("Ajouter une news");
+
+    $(this).find('.addNewError').addClass('hidden-xs-up').html("");
 
     button.find('.fa').removeClass('fa-pencil fa-pulse fa-spinner').addClass('fa-plus');
     button.removeAttr('disabled');

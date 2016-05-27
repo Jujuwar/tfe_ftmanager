@@ -23,7 +23,6 @@ class NewsController extends Controller
     public function ajaxAddAction( Request $request ) {
         if( $request->isXmlHttpRequest() ) {
             try {
-                // TODO : Validation des données
                 $em = $this->getDoctrine()->getManager();
                 $user = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -33,10 +32,15 @@ class NewsController extends Controller
                 $news->setMessage( $request->get( 'message' ) );
                 $news->setPublishDate( empty( $request->get( 'date' ) ) ? new \DateTime() : \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
-                $em->persist( $news );
-                $em->flush();
+                $errors = $this->get( 'validator' )->validate( $news );
 
-                $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news, 'loop' => array( 'index' => '-' ) ) )->getContent() ) ) );
+                if( count( $errors ) == 0 ) {
+                    $em->persist( $news );
+                    $em->flush();
+
+                    $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news, 'loop' => array( 'index' => '-' ) ) )->getContent() ) ) );
+                } else
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Impossible d\'ajouter la news', 'errors' => $this->render( 'AdminBundle:News:validation.html.twig', array( 'errors' => $errors ) )->getContent(), 'debug' => $errors ) ) );
             }
             catch( \Exception $e ) {
                 $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
@@ -127,9 +131,14 @@ class NewsController extends Controller
                 $news->setMessage( $request->get( 'message' ) );
                 $news->setPublishDate( \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
-                $em->flush();
+                $errors = $this->get( 'validator' )->validate( $news );
 
-                $response = new Response( json_encode( array( 'status' => 'ok', 'return' => $this->render( 'AdminBundle:News:newsRow.html.twig', array( 'news' => $news ) )->getContent() ) ) );
+                if( count( $errors ) == 0 ) {
+                    $em->flush();
+
+                    $response = new Response(json_encode(array('status' => 'ok', 'return' => $this->render('AdminBundle:News:newsRow.html.twig', array('news' => $news))->getContent())));
+                } else
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Impossible de modifier la news', 'errors' => $this->render( 'AdminBundle:News:validation.html.twig', array( 'errors' => $errors ) )->getContent(), 'debug' => $errors ) ) );
             }
             catch( \Exception $e ) {
                 $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );

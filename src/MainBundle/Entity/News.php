@@ -4,6 +4,7 @@ namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * News
@@ -26,6 +27,7 @@ class News
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -33,6 +35,7 @@ class News
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     * @Assert\NotBlank()
      */
     private $message;
 
@@ -40,6 +43,7 @@ class News
      * @var \DateTime
      *
      * @ORM\Column(name="publish_date", type="datetime")
+     * @Assert\NotBlank()
      */
     private $publishDate;
 
