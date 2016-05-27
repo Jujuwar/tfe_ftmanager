@@ -24,7 +24,9 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "symfony/assetic-bundle": "^2.8",
-        "friendsofsymfony/jsrouting-bundle": "^1.6"
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
+        "stfalcon/tinymce-bundle": "^2.1",
+        "cocur/slugify": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

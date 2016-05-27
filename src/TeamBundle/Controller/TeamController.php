@@ -5,7 +5,6 @@ namespace TeamBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use TeamBundle\Entity\Player;
 use TeamBundle\Form\Type\TeamType;
 use TeamBundle\Entity\Team;
 

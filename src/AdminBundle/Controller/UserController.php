@@ -5,9 +5,7 @@ namespace AdminBundle\Controller;
 use AdminBundle\Form\Type\EditUserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use UserBundle\Entity\User;
 
 class UserController extends Controller
 {
@@ -37,7 +35,7 @@ class UserController extends Controller
         if( $request->isXmlHttpRequest() ) {
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository( 'UserBundle:User' )->findOneById( $request->get( 'id' ) );
+            $user = $em->getRepository( 'UserBundle:User' )->findOneBy( array( 'id' => $request->get( 'id' ) ) );
 
             if( $user->hasRole( 'ROLE_SUPER_ADMIN' ) && !$this->get( 'security.authorization_checker' )->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
                 $response = new Response( json_encode( array( 'status' => 'ko', 'debug' => 'Vous n\'avez pas la permission pour cela' ) ) );
