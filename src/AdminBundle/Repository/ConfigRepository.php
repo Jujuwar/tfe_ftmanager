@@ -17,8 +17,6 @@ class ConfigRepository extends EntityRepository
             ->select('s')
             ->from('AdminBundle:Config', 's', 's.name');
         
-        $result = $query->getQuery()->getResult();
-
-        return $result;
+        return $query->getQuery()->getResult();
     }
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new TeamBundle\TeamBundle(),
             new MainBundle\MainBundle(),
             new AdminBundle\AdminBundle(),

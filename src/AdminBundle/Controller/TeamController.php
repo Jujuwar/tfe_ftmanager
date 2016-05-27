@@ -12,7 +12,7 @@ class TeamController extends Controller
     {
         $rep = $this->getDoctrine()->getRepository( 'TeamBundle:Team' );
 
-        $array_teams = $rep->findAll();
+        $array_teams = $rep->findBy( array( 'registered' => true ) );
 
         return $this->render( 'AdminBundle:Team:index.html.twig', array( 'array_teams' => $array_teams ) );
     }
@@ -22,7 +22,7 @@ class TeamController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
 
-                $team = $em->getRepository( 'TeamBundle:Team' )->findOneById( $request->get( 'id' ) );
+                $team = $em->getRepository( 'TeamBundle:Team' )->findOneBy( array( 'id' => $request->get( 'id' ), 'registered' => true ) );
 
                 if( $team ) {
                     $em->remove( $team );
@@ -55,7 +55,7 @@ class TeamController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
 
-                $team = $em->getRepository( 'TeamBundle:Team' )->findOneById( $request->get( 'id' ) );
+                $team = $em->getRepository( 'TeamBundle:Team' )->findOneBy( array( 'id' => $request->get( 'id' ), 'registered' => true ) );
 
                 if( $team ) {
                     $team->setValid( !$team->getValid() );

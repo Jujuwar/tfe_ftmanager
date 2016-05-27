@@ -93,6 +93,14 @@
         <div class="clearfix"></div>
     </div>
 
+    {% if not team.registered %}
+        <div class="alert alert-danger teamNotRegistred">
+            <h2><i class="fa fa-danger"></i> Attention</h2>
+            Votre équipe n'est pas inscrite pour ce tournoi. Lorsqu'un nouveau tournoi démarre, les anciennes équipes ne sont pas automatiquement ré-inscrites.<br>
+            <button class="btn btn-danger" data-id="{{ team.id }}">Inscrire mon équipe</button>
+        </div>
+    {% endif %}
+
     <h2>Composition de l'équipe</h2>
 
     <button class="btn btn-primary btn-lg pull-xs-right" data-toggle="modal" data-target="#addPlayer"><i class="fa fa-plus"></i> Ajouter un joueur</button>
@@ -109,7 +117,7 @@
         </thead>
 
         <tbody class="table_players_tbody">
-            {% for player in players %}
+            {% for player in team.players %}
                 {% include 'TeamBundle:Default:playerRow.html.twig' %}
             {% else %}
                 <tr><td colspan="4"><i>Aucun joueur</i></td></tr>
@@ -123,6 +131,7 @@
     {{ parent() }}
 
     {% javascripts output='js/compiled/team.js'
+        '@TeamBundle/Resources/public/js/team.js'
         '@TeamBundle/Resources/public/js/player.js'
         '@MainBundle/Resources/public/js/moment.js'
         '@MainBundle/Resources/public/js/moment-with-locales.js'

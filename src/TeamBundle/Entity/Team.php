@@ -39,7 +39,7 @@ class Team
     /**
      * @var bool
      *
-     * @ORM\Column(name="valid", type="boolean")
+     * @ORM\Column(name="valid", type="boolean", options={"default":false})
      */
     private $valid;
 
@@ -50,6 +50,20 @@ class Team
      * @ORM\JoinColumn(name="manager", referencedColumnName="id")
      */
     private $manager;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="registered", type="boolean", options={"default":false})
+     */
+    private $registered;
+
+    /**
+     * @var
+     *
+     * @ORM\OneToMany(targetEntity="TeamBundle\Entity\Player", mappedBy="team")
+     */
+    private $players;
 
 
     /**
@@ -152,5 +166,68 @@ class Team
     public function getManager()
     {
         return $this->manager;
+    }
+
+    /**
+     * Set registered
+     *
+     * @param boolean $registered
+     * @return Team
+     */
+    public function setRegistered($registered)
+    {
+        $this->registered = $registered;
+
+        return $this;
+    }
+
+    /**
+     * Get registered
+     *
+     * @return boolean 
+     */
+    public function getRegistered()
+    {
+        return $this->registered;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add players
+     *
+     * @param \TeamBundle\Entity\Player $players
+     * @return Team
+     */
+    public function addPlayer(\TeamBundle\Entity\Player $players)
+    {
+        $this->players[] = $players;
+
+        return $this;
+    }
+
+    /**
+     * Remove players
+     *
+     * @param \TeamBundle\Entity\Player $players
+     */
+    public function removePlayer(\TeamBundle\Entity\Player $players)
+    {
+        $this->players->removeElement($players);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }

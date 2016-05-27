@@ -17,3 +17,15 @@ team_player_ajax_delete:
 team_player_ajax_get:
     path:     /player/ajax/get
     defaults: { _controller: TeamBundle:Player:ajaxGet }
+
+team_ajax_setregistered:
+    path:     /ajax/setregistered
+    defaults: { _controller: TeamBundle:Team:ajaxSetRegistered }
+
+
+# Front
+
+team_front_homepage:
+    path:     /view/{id}-{team}
+    defaults: { _controller: TeamBundle:Team:frontIndex, id:"", team:"" }
+

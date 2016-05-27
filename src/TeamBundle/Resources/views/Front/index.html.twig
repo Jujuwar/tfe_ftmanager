@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Liste des teams
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Liste des teams</li>
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des équipes inscrites</h1>
+    <hr>
+
+    {% for team in teams %}
+        <div class="col-md-4">
+            <div class="card card-block">
+                <h4 class="card-title">{{ team.name }}</h4>
+                <p class="card-text">
+                    <i class="fa fa-user"></i> {{ team.manager.username }}<br>
+                    <i class="fa fa-calendar"></i> {{ team.registrationDate | date('d/m/Y') }}<br>
+                    {% if team.valid %}<i class="fa fa-check text-success"></i> Équipe validée{% else %}<i class="fa fa-remove text-danger"></i> Équipe non validée{% endif %}<br>
+                    <i class="fa fa-users"></i> {{ team.players|length }} joueurs
+                </p>
+                <a href="{{ path('team_front_homepage', {'id':team.id, 'team': team.name|slugify}) }}" class="btn btn-primary">Plus d'informations</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Aucune équipe ne s'est inscrite pour le moment
+        </div>
+    {% endfor %}
+{% endblock %}

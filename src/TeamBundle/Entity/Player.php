@@ -53,7 +53,7 @@ class Player
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="TeamBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="TeamBundle\Entity\Team", inversedBy="players")
      * @ORM\JoinColumn(name="team", referencedColumnName="id")
      */
     private $team;
