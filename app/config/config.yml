@@ -76,3 +76,9 @@ fos_user:
 
 fos_js_routing:
     routes_to_expose: [ (.*) ]
+
+rules:
+    symfony.controller.action_method_too_long:
+        enabled: true
+        max_length: 40
+        threshold: 10
