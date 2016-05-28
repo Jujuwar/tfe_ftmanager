@@ -3,6 +3,7 @@
 namespace TeamBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Player
@@ -25,6 +26,8 @@ class Player
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom ne peut pas être vide")
+     * @Assert\Length(max=50, maxMessage="Le prénom ne peut pas excéder 50 caractères")
      */
     private $name;
 
@@ -32,6 +35,8 @@ class Player
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=255)
+     * @Assert\NotBlank(message="Le nom ne peut pas être vide")
+     * @Assert\Length(max=50, maxMessage="Le nom ne peut pas excéder 50 caractères")
      */
     private $surname;
 
@@ -39,6 +44,8 @@ class Player
      * @var int
      *
      * @ORM\Column(name="number", type="integer")
+     * @Assert\NotBlank(message="Le numéro ne peut pas être vide")
+     * @Assert\Regex(pattern="/^\d+/", message="Le numéro doit être un nombre")
      */
 
     private $number;
@@ -47,6 +54,8 @@ class Player
      * @var \DateTime
      *
      * @ORM\Column(name="birthday", type="datetime")
+     * @Assert\NotBlank(message="Le date de naissance doit être remplie")
+     * @Assert\DateTime(message="La date doit être au format jj/mm/aaaa")
      */
     private $birthday;
 

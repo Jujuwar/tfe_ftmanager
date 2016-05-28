@@ -40,8 +40,9 @@ $('.addPlayer').on('click', function() {
 
         $.ajax({
             type: 'POST',
-            url: Routing.generate('admin_news_ajax_edit'),
+            url: Routing.generate('team_player_ajax_edit'),
             data: {
+                id: id,
                 team: team,
                 number: number,
                 name: name,
@@ -65,7 +66,9 @@ $('.addPlayer').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addPlayerError').html(data.message);
+                    $('.addPlayerError').removeClass('hidden-xs-up').html('<h4>' + data.message + '</h4>' + data.errors);
+                    button.find('.fa').removeClass('fa-pulse fa-spinner').addClass('fa-pencil');
+                    button.removeAttr('disabled');
                 }
             }
         });
@@ -97,7 +100,9 @@ $('.addPlayer').on('click', function() {
                         $(".modal_alert_success").modal('hide');
                     }, 1700);
                 } else {
-                    $('.addPlayerError').html(data.message);
+                    $('.addPlayerError').removeClass('hidden-xs-up').html('<h4>' + data.message + '</h4>' + data.errors);
+                    button.find('.fa').removeClass('fa-pulse fa-spinner').addClass('fa-plus');
+                    button.removeAttr('disabled');
                 }
             }
         });
@@ -169,8 +174,6 @@ $('.table_players_tbody').on('click', 'button[data-action="edit"]', function() {
                 modal.find('#addPlayer_Name').val(data.player.name);
                 modal.find('#addPlayer_Birthday').val(moment.unix(data.player.birthday.timestamp).format('DD/MM/YYYY'));
 
-                console.log(data.player.birthday);
-
                 modal.find('.modal-title').html("Modification d'un joueur");
                 modal.find('.fa-plus').removeClass('fa-plus').addClass('fa-pencil');
 
@@ -193,6 +196,8 @@ $('#addPlayer').on('hide.bs.modal', function() {
     $(this).find('#addPlayer_Name').val('');
     $(this).find('#addPlayer_Birthday').val('');
     $(this).find('.modal-title').html("Ajouter un joueur");
+
+    $(this).find('.addPlayerError').addClass('hidden-xs-up').html("");
 
     button.find('.fa').removeClass('fa-pencil fa-pulse fa-spinner').addClass('fa-plus');
     button.removeAttr('disabled');

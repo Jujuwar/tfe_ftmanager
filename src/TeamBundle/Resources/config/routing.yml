@@ -14,6 +14,10 @@ team_player_ajax_delete:
     path:     /player/ajax/delete
     defaults: { _controller: TeamBundle:Player:ajaxDelete }
 
+team_player_ajax_edit:
+    path:     /player/ajax/edit
+    defaults: { _controller: TeamBundle:Player:ajaxEdit }
+
 team_player_ajax_get:
     path:     /player/ajax/get
     defaults: { _controller: TeamBundle:Player:ajaxGet }
