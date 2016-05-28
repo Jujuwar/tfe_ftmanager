@@ -62,7 +62,7 @@ class NewsController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
 
-                $news = $em->getRepository( 'MainBundle:News' )->findOneById( $request->get( 'id' ) );
+                $news = $em->getRepository( 'MainBundle:News' )->findOneBy( array( 'id' => $request->get( 'id' ) ) );
 
                 if( $news ) {
                     $em->remove( $news );
@@ -94,7 +94,7 @@ class NewsController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
 
-                $news = $em->getRepository( 'MainBundle:News' )->findOneById( $request->get( 'id' ) );
+                $news = $em->getRepository( 'MainBundle:News' )->findOneBy( array( 'id' => $request->get( 'id' ) ) );
 
                 $normalizer  = new ObjectNormalizer();;
                 $normalizer->setCircularReferenceHandler(function ($object) {
@@ -125,11 +125,11 @@ class NewsController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
                 
-                $news = $em->getRepository( 'MainBundle:News' )->findOneById( $request->get( 'id' ) );
+                $news = $em->getRepository( 'MainBundle:News' )->findOneBy( array( 'id' => $request->get( 'id' ) ) );
 
                 $news->setTitle( $request->get( 'title' ) );
                 $news->setMessage( $request->get( 'message' ) );
-                $news->setPublishDate( \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
+                $news->setPublishDate( empty( $request->get( 'date' ) ) ? new \DateTime() : \DateTime::createFromFormat( 'd/m/Y H:i', $request->get( 'date' ) ) );
 
                 $errors = $this->get( 'validator' )->validate( $news );
 

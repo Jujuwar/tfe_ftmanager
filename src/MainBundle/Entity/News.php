@@ -27,7 +27,8 @@ class News
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le titre ne peut pas être vide")
+     * @Assert\Length(max=50, maxMessage="Le titre ne peut pas excéder 50 caractères")
      */
     private $title;
 
@@ -35,7 +36,7 @@ class News
      * @var string
      *
      * @ORM\Column(name="message", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le message ne peut pas être vide")
      */
     private $message;
 
@@ -43,7 +44,8 @@ class News
      * @var \DateTime
      *
      * @ORM\Column(name="publish_date", type="datetime")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="La date doit être remplie")
+     * @Assert\DateTime(message="La date doit être au format jj/mm/aaaa hh:mm")
      */
     private $publishDate;
 

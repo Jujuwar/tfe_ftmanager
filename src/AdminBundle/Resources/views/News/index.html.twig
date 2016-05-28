@@ -52,7 +52,6 @@
                             </div>
                         </div>
 
-                        {{ tinymce_init() }}
                         <div class="form-group row">
                             <label class="form-control-label col-md-2" for="addNew_Message">Message</label>
                             <div class="col-md-10">
@@ -109,4 +108,6 @@
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    {{ tinymce_init() }}
 {% endblock %}
