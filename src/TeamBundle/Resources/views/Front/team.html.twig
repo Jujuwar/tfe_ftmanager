@@ -11,5 +11,27 @@
 {% endblock %}
 
 {% block body %}
+    <h1>{{ team.name }}</h1>
+    <hr>
 
+    <div class="col-md-4">
+        <div class="card card-block">
+            <h4 class="card-title">Informations générales</h4>
+            <p class="card-text">
+                <i class="fa fa-user"></i> {{ team.manager.username }}<br>
+                <i class="fa fa-calendar"></i> {{ team.registrationDate | date('d/m/Y') }}<br>
+                {% if team.valid %}<i class="fa fa-check text-success"></i> Équipe validée{% else %}<i class="fa fa-remove text-danger"></i> Équipe non validée{% endif %}<br>
+                <i class="fa fa-users"></i> {{ team.players|length }} joueurs
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-block">
+            <h4 class="card-title">Informations du tournoi</h4>
+            <p class="card-text">
+
+            </p>
+        </div>
+    </div>
 {% endblock %}

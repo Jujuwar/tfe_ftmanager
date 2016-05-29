@@ -23,7 +23,7 @@
                     {% if team.valid %}<i class="fa fa-check text-success"></i> Équipe validée{% else %}<i class="fa fa-remove text-danger"></i> Équipe non validée{% endif %}<br>
                     <i class="fa fa-users"></i> {{ team.players|length }} joueurs
                 </p>
-                <a href="{{ path('team_front_homepage', {'id':team.id, 'team': team.name|slugify}) }}" class="btn btn-primary">Plus d'informations</a>
+                <a href="{{ path('team_front_homepage', {'id':team.id, 'slugTeam': team.name|slugify}) }}" class="btn btn-primary">Plus d'informations</a>
             </div>
         </div>
     {% else %}
