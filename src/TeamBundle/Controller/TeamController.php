@@ -107,4 +107,12 @@ class TeamController extends Controller
         else
             return $this->redirectToRoute( 'team_front_homepage', array( 'id' => $team->getId(), 'slugTeam' => $this->get( 'cocur_slugify' )->slugify( $team->getName() ) ) );
     }
+
+    public function frontViewTeamMatchsAction( $id ) {
+        $em = $this->getDoctrine()->getManager();
+
+        $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findByTeam( $id );
+        
+        return $this->render( 'TeamBundle:Front:match.html.twig', array( 'matchs' => $matchs ) );
+    }
 }
