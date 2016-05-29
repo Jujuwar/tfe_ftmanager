@@ -111,7 +111,7 @@ class TeamController extends Controller
     public function frontViewTeamMatchsAction( $id ) {
         $em = $this->getDoctrine()->getManager();
 
-        $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findByTeam( $id );
+        $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findByTeam( $id, true );
         
         return $this->render( 'TeamBundle:Front:match.html.twig', array( 'matchs' => $matchs ) );
     }

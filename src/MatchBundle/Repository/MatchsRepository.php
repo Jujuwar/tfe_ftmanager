@@ -10,13 +10,16 @@ namespace MatchBundle\Repository;
  */
 class MatchsRepository extends \Doctrine\ORM\EntityRepository
 {
-    function findByTeam( $id ) {
+    function findByTeam( $id, $ordered = false ) {
         $qb = $this->createQueryBuilder( 'm' );
 
         $qb->where( $qb->expr()->orX()
             ->add( 'm.team1 = ?1' )
             ->add( 'm.team2 = ?2' )
         );
+
+        if( $ordered )
+            $qb->orderBy( 'm.date ', 'DESC');
 
         $qb->setParameter( '1', $id );
         $qb->setParameter( '2', $id );

@@ -61,7 +61,12 @@ class Matchs
      */
     private $type;
 
-    //private $prestations;
+    /**
+     * @var
+     *
+     * @ORM\OneToMany(targetEntity="MatchBundle\Entity\Prestation", mappedBy="match")
+     */
+    private $prestations;
 
 
     /**
@@ -192,5 +197,46 @@ class Matchs
     public function getType()
     {
         return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->prestations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add prestation
+     *
+     * @param \MatchBundle\Entity\Prestation $prestation
+     *
+     * @return Matchs
+     */
+    public function addPrestation(\MatchBundle\Entity\Prestation $prestation)
+    {
+        $this->prestations[] = $prestation;
+
+        return $this;
+    }
+
+    /**
+     * Remove prestation
+     *
+     * @param \MatchBundle\Entity\Prestation $prestation
+     */
+    public function removePrestation(\MatchBundle\Entity\Prestation $prestation)
+    {
+        $this->prestations->removeElement($prestation);
+    }
+
+    /**
+     * Get prestations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrestations()
+    {
+        return $this->prestations;
     }
 }
