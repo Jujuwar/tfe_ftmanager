@@ -1,3 +1,9 @@
-match_homepage:
-    path:     /
-    defaults: { _controller: MatchBundle:Default:index }
+match_results:
+    path:     /{id}
+    defaults: { _controller: "MatchBundle:Match:results" }
+    requirements:
+        id:  \d+
+
+match_calendar:
+    path:     /calendar
+    defaults: { _controller: "MatchBundle:Match:calendar" }

@@ -18,7 +18,7 @@
                     {% if match.date < date() %}
                         <br>
                         {% if match.prestations|length > 0 %}
-                            <i class="fa fa-sticky-note"></i> <a>Voir la feuille de match</a>
+                            <i class="fa fa-sticky-note"></i> <a href="{{ path('match_results', {id:match.id}) }}">Voir la feuille de match</a>
                         {% else %}
                             <i>En attente des résultats</i>
                         {% endif %}

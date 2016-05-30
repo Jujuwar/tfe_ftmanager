@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Résultat du match entre {{ match.team1.name }} et {{ match.team2.name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Résultat du match</li>
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
