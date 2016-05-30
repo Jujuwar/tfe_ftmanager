@@ -52,7 +52,13 @@ class Matchs
      */
     private $team2;
 
-    //private $field;
+    /**
+     * @var \MatchBundle\Entity\Field
+     *
+     * @ORM\ManyToOne(targetEntity="MatchBundle\Entity\Field")
+     * @ORM\JoinColumn(name="field", referencedColumnName="id")
+     */
+    private $field;
 
     /**
      * @var string
@@ -238,5 +244,29 @@ class Matchs
     public function getPrestations()
     {
         return $this->prestations;
+    }
+
+    /**
+     * Set field
+     *
+     * @param \MatchBundle\Entity\Field $field
+     *
+     * @return Matchs
+     */
+    public function setField(\MatchBundle\Entity\Field $field = null)
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * Get field
+     *
+     * @return \MatchBundle\Entity\Field
+     */
+    public function getField()
+    {
+        return $this->field;
     }
 }

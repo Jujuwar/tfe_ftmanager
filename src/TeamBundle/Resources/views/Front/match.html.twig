@@ -1,17 +1,18 @@
 <table class="table table-striped table-hover">
     <thead class="thead-inverse">
         <tr>
-            <th>Match</th>
+            <th class="text-xs-center">Match</th>
             <th>Date</th>
             <th>Arbitre</th>
             <th>Type</th>
+            <th>Terrain</th>
         </tr>
     </thead>
 
     <tbody>
         {% for match in matchs %}
-            <tr>
-                <td>{{ match.team1.name }}<br><b>VS</b><br>{{ match.team2.name }}</td>
+            <tr {% if match.date < date() %}class="table-success"{% endif %}>
+                <td class="text-xs-center">{{ match.team1.name }}<br><b>VS</b><br>{{ match.team2.name }}</td>
                 <td>
                     {{ match.date|date('d/m/Y H:i') }}
                     {% if match.date < date() %}
@@ -25,6 +26,7 @@
                 </td>
                 <td>{{ match.referee.username }}</td>
                 <td>{{ match.type }}</td>
+                <td>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
             </tr>
         {% else %}
             <tr>
