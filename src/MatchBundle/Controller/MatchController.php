@@ -11,7 +11,13 @@ class MatchController extends Controller
 
         $match = $em->getRepository( 'MatchBundle:Matchs' )->findOneBy( array( 'id' => $id ) );
 
-        return $this->render( 'MatchBundle:Match:results.html.twig', array( 'match' => $match ) );
+        if( $match && count( $match->getPrestations() ) > 0 )
+            return $this->render( 'MatchBundle:Match:results.html.twig', array( 'match' => $match ) );
+        else {
+            $this->addFlash( 'danger', 'Le match n\'a pas encore été joué ou n\'existe pas' );
+            
+            return $this->redirectToRoute('match_calendar');
+        }
     }
 
     public function calendarAction()

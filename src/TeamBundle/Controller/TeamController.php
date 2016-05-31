@@ -20,8 +20,11 @@ class TeamController extends Controller
 
         if( $team )
             return $this->render( 'TeamBundle:Default:index.html.twig', array( 'team' => $team ) );
-        else // Si aucune équipe inscrite, on redirige sur la page pour en inscrire une
-            return $this->redirectToRoute( 'team_registration' );
+        else {// Si aucune équipe inscrite, on redirige sur la page pour en inscrire une
+            $this->addFlash( 'danger', 'Vous ne possédez aucune équipe' );
+
+            return $this->redirectToRoute('team_registration');
+        }
 
     }
 
@@ -50,8 +53,11 @@ class TeamController extends Controller
             }
 
             return $this->render( 'TeamBundle:Default:registration.html.twig', array( 'form' => $form->createView() ) );
-        } else
-            return $this->redirectToRoute( 'team_homepage' );
+        } else {
+            $this->addFlash( 'danger', 'Vous possédez déjà une équipe' );
+
+            return $this->redirectToRoute('team_homepage');
+        }
     }
 
     public function ajaxSetRegisteredAction( Request $request ) {

@@ -1,0 +1,15 @@
+<div class="col-md-6">
+    <h2>{{ team.name }}</h2>
+
+    <hr>
+
+    <div class="row">
+        {% include 'MatchBundle:Match:results.infos.html.twig' %}
+    </div>
+
+    {% for prestation in match.prestations %}
+        {% if prestation.player.team == team %}
+
+        {% endif %}
+    {% endfor %}
+</div>

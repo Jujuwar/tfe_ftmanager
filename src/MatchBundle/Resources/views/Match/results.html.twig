@@ -10,5 +10,7 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'MatchBundle:Match:results.team.html.twig' with {'team' : match.team1} %}
 
+    {% include 'MatchBundle:Match:results.team.html.twig' with {'team' : match.team2} %}
 {% endblock %}
