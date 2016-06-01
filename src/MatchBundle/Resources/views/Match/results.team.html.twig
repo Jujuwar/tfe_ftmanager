@@ -7,9 +7,35 @@
         {% include 'MatchBundle:Match:results.infos.html.twig' %}
     </div>
 
-    {% for prestation in match.prestations %}
-        {% if prestation.player.team == team %}
+    <table class="table table-striped table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Joueur</th>
+                <th>Entrée au jeu</th>
+                <th>Cartons</th>
+                <th>Buts</th>
+            </tr>
+        </thead>
 
-        {% endif %}
-    {% endfor %}
+        <tbody>
+            {% for prestation in match.prestations %}
+                {% if prestation.player.team == team %}
+                    <tr>
+                        <td>{{ prestation.player.name }} {{ prestation.player.surname }}</td>
+                        <td>
+                            <i class="fa fa-arrow-up text-success"></i> {{ prestation.enterTime }}'
+                            <br>
+                            <i class="fa fa-arrow-down text-danger"></i> {{ prestation.leaveTime }}'
+                        </td>
+                        <td>
+                            <i class="fa fa-square text-warning"></i> {{ prestation.yellowCards }}
+                            <br>
+                            <i class="fa fa-square text-danger"></i> {{ prestation.redCards }}
+                        </td>
+                        <td>{{ prestation.buts }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 </div>

@@ -119,6 +119,6 @@ class TeamController extends Controller
 
         $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findByTeam( $id, true );
         
-        return $this->render( 'TeamBundle:Front:match.html.twig', array( 'matchs' => $matchs ) );
+        return $this->render( 'TeamBundle:Front:match.html.twig', array( 'idTeam' => $id, 'matchs' => $matchs ) );
     }
 }

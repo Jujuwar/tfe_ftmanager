@@ -269,4 +269,44 @@ class Matchs
     {
         return $this->field;
     }
+
+    public function getTotalYellowCardsByTeam( \TeamBundle\Entity\Team $team ) {
+        $res = 0;
+
+        foreach( $this->prestations as $k => $v ) {
+            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+                $res += $v->getYellowCards();
+        }
+
+        return $res;
+    }
+
+    public function getTotalRedCardsByTeam( \TeamBundle\Entity\Team $team ) {
+        $res = 0;
+
+        foreach( $this->prestations as $k => $v ) {
+            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+                $res += $v->getRedCards();
+        }
+
+        return $res;
+    }
+
+    public function getTotalButsByTeam( \TeamBundle\Entity\Team $team ) {
+        $res = 0;
+
+        foreach( $this->prestations as $k => $v ) {
+            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+                $res += $v->getButs();
+        }
+
+        return $res;
+    }
+
+    public function getWinner() {
+        $nbButs1 = $this->getTotalButsByTeam( $this->team1 );
+        $nbButs2 = $this->getTotalButsByTeam( $this->team2 );
+
+        return $nbButs1 >= $nbButs2 ? $nbButs1 == $nbButs2 ? null : $this->team1 : $this->team2;
+    }
 }

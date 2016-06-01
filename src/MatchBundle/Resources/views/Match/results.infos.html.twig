@@ -1,10 +1,10 @@
 <div class="col-md-5">
     <div class="card card-block">
-        <h4 class="card-title">Informations</h4>
+        <h4 class="card-title">Statistiques</h4>
         <p class="card-text">
-            <i class="fa fa-futbol-o"></i> Nombre de buts<br>
-            <i class="fa fa-square text-warning"></i> Cartes jaunes<br>
-            <i class="fa fa-square text-danger"></i> Cartes rouges
+            <i class="fa fa-futbol-o" data-toggle="tooltip" data-trigger="hover" title="Nombre de buts"></i> {{ match.totalButsByTeam(team) }}<br>
+            <i class="fa fa-square text-warning" data-toggle="tooltip" data-trigger="hover" title="Nombre de cartons jaunes"></i> {{ match.totalYellowCardsByTeam(team) }}<br>
+            <i class="fa fa-square text-danger" data-toggle="tooltip" data-trigger="hover" title="Nombre de cartons rouges"></i> {{ match.totalRedCardsByTeam(team) }}
         </p>
     </div>
 </div>

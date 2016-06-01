@@ -11,7 +11,7 @@
 
     <tbody>
         {% for match in matchs %}
-            <tr {% if match.date < date() %}class="table-success"{% endif %}>
+            <tr {% if match.date < date() %}class="{% if match.getWinner == null %}table-info{% elseif match.getWinner.id == idTeam %}table-success{% else %}table-danger{% endif %}"{% endif %}>
                 <td class="text-xs-center">{{ match.team1.name }}<br><b>VS</b><br>{{ match.team2.name }}</td>
                 <td>
                     {{ match.date|date('d/m/Y H:i') }}
