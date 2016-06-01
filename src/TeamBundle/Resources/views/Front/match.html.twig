@@ -11,20 +11,24 @@
 
     <tbody>
         {% for match in matchs %}
-            <tr {% if match.date < date() %}class="{% if match.getWinner == null %}table-info{% elseif match.getWinner.id == idTeam %}table-success{% else %}table-danger{% endif %}"{% endif %}>
+            <tr {% if match.date and match.date < date() %}class="{% if match.getWinner == null %}table-info{% elseif match.getWinner.id == idTeam %}table-success{% else %}table-danger{% endif %}"{% endif %}>
                 <td class="text-xs-center">{{ match.team1.name }}<br><b>VS</b><br>{{ match.team2.name }}</td>
                 <td>
-                    {{ match.date|date('d/m/Y H:i') }}
-                    {% if match.date < date() %}
-                        <br>
-                        {% if match.prestations|length > 0 %}
-                            <i class="fa fa-sticky-note"></i> <a href="{{ path('match_results', {id:match.id}) }}">Voir la feuille de match</a>
-                        {% else %}
-                            <i>En attente des résultats</i>
+                    {% if match.date %}
+                        {{ match.date|date('d/m/Y H:i') }}
+                        {% if match.date < date() %}
+                            <br>
+                            {% if match.prestations|length > 0 %}
+                                <i class="fa fa-sticky-note"></i> <a href="{{ path('match_results', {id:match.id}) }}">Voir la feuille de match</a>
+                            {% else %}
+                                <i>En attente des résultats</i>
+                            {% endif %}
                         {% endif %}
+                    {% else %}
+                        <i>Aucune date sélectionnée</i>
                     {% endif %}
                 </td>
-                <td>{{ match.referee.username }}</td>
+                <td>{% if match.referee %}{{ match.referee.username }}{% else %}<i>Aucun arbitre sélectionné</i>{% endif %}</td>
                 <td>{{ match.type }}</td>
                 <td>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
             </tr>

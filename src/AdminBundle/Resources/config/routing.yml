@@ -57,6 +57,11 @@ admin_teams_ajax_validate:
     path:     /teams/ajax/validate
     defaults: { _controller: 'AdminBundle:Team:ajaxValidate' }
 
+# Gestion des matchs
+admin_matchs:
+    path:     /matchs
+    defaults: { _controller: 'AdminBundle:Match:index' }
+
 # Gestion de la configuration
 
 admin_config:
