@@ -62,6 +62,18 @@ admin_matchs:
     path:     /matchs
     defaults: { _controller: 'AdminBundle:Match:index' }
 
+admin_matchs_ajax_get:
+    path:     /matchs/ajax/get
+    defaults: { _controller: 'AdminBundle:Match:ajaxGet' }
+
+admin_matchs_ajax_edit:
+    path:     /matchs/ajax/edit
+    defaults: { _controller: 'AdminBundle:Match:ajaxEdit' }
+
+admin_matchs_ajax_getfields:
+    path:     /matchs/ajax/getfields
+    defaults: { _controller: 'AdminBundle:Match:ajaxGetFields' }
+
 # Gestion de la configuration
 
 admin_config:

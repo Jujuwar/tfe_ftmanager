@@ -1,0 +1,12 @@
+<tr data-id="{{ match.id }}">
+    <td class="text-xs-center">
+        {{ match.team1.name }}
+        <br><b>VS</b><br>
+        {{ match.team2.name }}
+    </td>
+    <td data-action="editMode" data-column="date">{% if match.date %}{{ match.date|date('d/m/Y H:i') }}{% else %}<i>Aucune date sélectionnée</i>{% endif %}</td>
+    <td data-action="editMode" data-column="referee">{% if match.referee %}{{ match.referee.username }}{% else %}<i>Aucun arbitre sélectionné</i>{% endif %}</td>
+    <td data-action="editMode" data-column="field">{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
+    <td>{{ match.type }}</td>
+    <td></td>
+</tr>
