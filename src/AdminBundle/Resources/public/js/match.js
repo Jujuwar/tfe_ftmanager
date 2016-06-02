@@ -1,8 +1,8 @@
 var timer;
-var timeBeforeEdit = 1500;
+var timeBeforeEdit = 1200;
 var editMode = false;
 
-$('td[data-action=editMode]').on("mousedown", function() {
+$('#table_matchs').on("mousedown", 'td[data-action=editMode]', function() {
     if(!editMode) {
         var column = $(this).data('column');
         var id = $(this).parent().data('id');
@@ -35,9 +35,31 @@ function inlineEdit(id, column) {
                 switch(column) {
                     case 'date':
                         line.empty();
-                        line.append(
-                            $('<input>').addClass('form-control').attr('data-mode', 'edit').val(moment.unix(data.value.date.timestamp).format('DD/MM/YYYY HH:mm'))
-                        );
+                        var container = $('<div>').attr('style', 'position:relative;');
+                        if(data.value.date != null)
+                            var input = $('<input>').addClass('form-control').attr('data-mode', 'edit').data('old', moment.unix(data.value.date.timestamp).format('DD/MM/YYYY HH:mm')).val(moment.unix(data.value.date.timestamp).format('DD/MM/YYYY HH:mm'));
+                        else
+                            var input = $('<input>').addClass('form-control').attr('data-mode', 'edit').data('old', 'Aucune date sélectionnée');
+
+                        $(container).append(input);
+                        line.append(container);
+
+                        $(input).datetimepicker({
+                            locale: 'fr',
+                            format: 'DD/MM/YYYY HH:mm',
+                            useCurrent: false,
+                            icons: {
+                                time: 'fa fa-clock-o',
+                                date: 'fa fa-calendar',
+                                up: 'fa fa-chevron-up',
+                                down: 'fa fa-chevron-down',
+                                previous: 'fa fa-chevron-left',
+                                next: 'fa fa-chevron-right',
+                                today: 'fa fa-screenshot',
+                                clear: 'fa fa-trash',
+                                close: 'fa fa-remove'
+                            }
+                        });
                         break;
 
                     case 'field':
@@ -54,10 +76,47 @@ function inlineEdit(id, column) {
                                 if (data2.status == 'ok') {
                                     line.empty();
                                     $.each( data2.values, function(i, item) {
-                                        select.append($('<option>', {value: item.id, text: item.name}));
+                                        var option = $('<option>', {value: item.id, text: item.name});
+
+                                        if(data.value.field != null && data.value.field.id == item.id)
+                                            option.attr('selected', 'selected');
+
+                                        select.append(option);
+                                    });
+                                    line.append(select.data('old', data.value.field != null ? data.value.field.name : 'Aucun terrain sélectionné'));
+                                } else {
+                                    $('.modal-body-more-info').html(data2.message);
+                                    $('.modal_alert_error').modal('show');
+
+                                    console.log(data2.debug);
+                                }
+                            }
+                        });
+                        break;
+
+                    case 'referee':
+                        var select = $('<select>').addClass('form-control').attr('data-mode', 'edit');
+
+                        $.ajax({
+                            type: 'POST',
+                            url: Routing.generate('admin_matchs_ajax_getreferee'),
+                            async: false,
+                            error: function (request, error) { // Info Debuggage si erreur
+                                console.log("Erreur : responseText: " + request.responseText);
+                            },
+                            success: function (data2) {
+                                if (data2.status == 'ok') {
+                                    line.empty();
+                                    $.each( data2.values, function(i, item) {
+                                        var option = $('<option>', {value: item.id, text: item.username});
+
+                                        if(data.value.referee != null && data.value.referee.id == item.id)
+                                            option.attr('selected', 'selected');
+
+                                        select.append(option);
                                     });
                                     line.append(
-                                        select
+                                        select.data('old', data.value.referee != null ? data.value.referee.username : 'Aucun arbitre sélectionné')
                                     );
                                 } else {
                                     $('.modal-body-more-info').html(data2.message);
@@ -72,6 +131,8 @@ function inlineEdit(id, column) {
 
                 line.append(
                     $('<button>').addClass('btn btn-primary btn-sm m-t-1').text('Valider').data('column', column).attr('data-action', 'edit')
+                ).append(
+                    $('<button>').addClass('btn btn-default btn-sm m-t-1 m-l-1').text('Annuler').data('column', column).attr('data-action', 'cancel')
                 );
             } else {
                 $('.modal-body-more-info').html(data.message);
@@ -105,6 +166,32 @@ $('.table_matchs_tbody').on('click', 'button[data-action="edit"]', function() {
     }
 
     updateMatch(id, date, field, referee);
+
+    editMode = false;
+});
+
+$('.table_matchs_tbody').on('click', 'button[data-action="cancel"]', function() {
+    var id = $(this).parent().parent().data('id');
+
+    var date = '';
+    var field = '';
+    var referee = '';
+
+
+    switch($(this).data('column')) {
+        case 'date':
+            date = $('input[data-mode=edit]').data('old');
+            break;
+
+        case 'referee':
+            referee = $('select[data-mode=edit]').data('old');
+            break;
+
+        case 'field':
+            field = $('select[data-mode=edit]').data('old');
+    }
+
+    cancelEdit(id, date, field, referee);
 });
 
 function updateMatch(id, date, field, referee) {
@@ -139,4 +226,17 @@ function updateMatch(id, date, field, referee) {
             }
         }
     });
+}
+
+function cancelEdit(id, date, field, referee) {
+    if(date != '')
+        $('tr[data-id = ' + id + '] td[data-column=date]').empty().append(date);
+
+    if(field != '')
+        $('tr[data-id = ' + id + '] td[data-column=field]').empty().append(field);
+
+    if(referee != '')
+        $('tr[data-id = ' + id + '] td[data-column=referee]').empty().append(referee);
+
+    editMode = false;
 }

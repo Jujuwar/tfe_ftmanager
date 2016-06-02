@@ -115,4 +115,36 @@ class MatchController extends Controller
 
         return $response;
     }
+
+    public function ajaxGetRefereeAction( Request $request ) {
+        if( $request->isXmlHttpRequest() ) {
+            try {
+                $em = $this->getDoctrine()->getManager();
+
+                $referees = $em->getRepository( 'UserBundle:User' )->findByRole( 'ROLE_ARBITRE' );
+                $referees = array_merge( $em->getRepository( 'UserBundle:User' )->findByRole( 'ROLE_ADMIN' ), $referees );
+                $referees = array_merge( $em->getRepository( 'UserBundle:User' )->findByRole( 'ROLE_SUPER_ADMIN' ), $referees );
+
+                $normalizer  = new ObjectNormalizer();;
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+                $serializer = new Serializer( array( $normalizer ) );
+                $referees = $serializer->normalize( $referees );
+
+                $response = new Response( json_encode(array('status' => 'ok', 'values' => $referees)));
+            }
+            catch( \Exception $e ) {
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
+            }
+            $response->headers->set( 'Content-Type', 'application/json' );
+
+            return $response;
+        }
+
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès refusé', 'debug' => 'Bad request' ) ) );
+        $response->headers->set( 'Content-Type', 'application/json') ;
+
+        return $response;
+    }
 }

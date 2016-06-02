@@ -9,6 +9,14 @@
     <li class="active">Gestion des matchs</li>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets '@MainBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <h1>Gestion des matchs</h1>
 

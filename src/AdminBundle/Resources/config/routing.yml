@@ -74,6 +74,10 @@ admin_matchs_ajax_getfields:
     path:     /matchs/ajax/getfields
     defaults: { _controller: 'AdminBundle:Match:ajaxGetFields' }
 
+admin_matchs_ajax_getreferee:
+    path:     /matchs/ajax/getreferee
+    defaults: { _controller: 'AdminBundle:Match:ajaxGetReferee' }
+
 # Gestion de la configuration
 
 admin_config:
