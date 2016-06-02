@@ -109,5 +109,9 @@
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {{ tinymce_init() }}
+    <script src="{{ asset('bundles/main/js/ckeditor/ckeditor.js') }}"></script>
+
+    <script>
+        CKEDITOR.replace('addNew_Message');
+    </script>
 {% endblock %}

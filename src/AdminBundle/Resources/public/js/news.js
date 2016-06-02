@@ -104,7 +104,7 @@ $('#addNews').on('hide.bs.modal', function() {
     var button = $(this).find('.addNews');
 
     $(this).find('#addNew_Title').val('');
-    tinyMCE.activeEditor.setContent('');
+    CKEDITOR.instances['addNew_Message'].setData('');
     $(this).find('#addNew_Date').val('');
     $(this).find('.modal-title').html("Ajouter une news");
 
@@ -177,7 +177,7 @@ $('.table_news_tbody').on('click', 'button[data-action="edit"]', function() {
         success: function (data) {
             if(data.status == 'ok') {
                 modal.find('#addNew_Title').val(data.news.title);
-                modal.find('#addNew_Message').val(data.news.message);
+                CKEDITOR.instances['addNew_Message'].setData(data.news.message);
                 modal.find('#addNew_Date').val(moment.unix(data.news.publishDate.timestamp).format("DD/MM/YYYY HH:mm"));
 
                 modal.find('.modal-title').html("Modification d'une news");
