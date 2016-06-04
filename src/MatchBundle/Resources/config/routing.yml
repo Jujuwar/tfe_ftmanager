@@ -7,3 +7,11 @@ match_results:
 match_calendar:
     path:     /calendar
     defaults: { _controller: "MatchBundle:Match:calendar" }
+
+match_ajax_get:
+    path:     /ajax/get
+    defaults: { _controller: "MatchBundle:Match:ajaxGet" }
+
+match_referee:
+    path:     /referee
+    defaults: { _controller: "MatchBundle:Referee:index" }

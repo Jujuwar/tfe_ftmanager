@@ -6,7 +6,7 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER, ROLE_ARBITRE]
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
@@ -43,6 +43,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/team/(?!view), role: ROLE_USER }
         - { path: ^/admin/, role: [ROLE_ADMIN, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/match/referee/, role: ROLE_ARBITRE }
 
     access_decision_manager:
         # Strategy can be: affirmative, unanimous or consensus

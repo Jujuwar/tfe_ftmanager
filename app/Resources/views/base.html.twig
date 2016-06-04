@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <title>{% block title %}ftManager{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+        {% stylesheets '@MainBundle/Resources/public/css/bootstrap.min.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -31,6 +35,10 @@
                                 <a class="dropdown-item" href="{{ path('team_homepage') }}">Gestion d'équipe</a>
                             {% else %}
                                 <a class="dropdown-item" href="{{ path('team_registration') }}">Inscription d'équipe</a>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ARBITRE') %}
+                                <a class="dropdown-item" href="{{ path('match_referee') }}">Arbitrage</a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
