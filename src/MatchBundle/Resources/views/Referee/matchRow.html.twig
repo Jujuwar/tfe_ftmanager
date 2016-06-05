@@ -1,0 +1,25 @@
+<tr data-id="{{ match.id }}">
+    <td class="text-xs-center">
+        {{ match.team1.name }}
+        <br><b>VS</b><br>
+        {{ match.team2.name }}
+    </td>
+    <td>{% if match.date %}{{ match.date|date('d/m/Y H:i') }}{% else %}<i>Aucune date sélectionnée</i>{% endif %}</td>
+    <td>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
+    <td class="text-xs-center">
+        {% if match.date > date() %}
+            <i>Match non joué</i>
+        {% else %}
+            {% if match.prestations|length > 0 %}
+                <i class="fa fa-check text-success"></i>
+            {% else %}
+                <i class="fa fa-remove text-danger"></i>
+            {% endif %}
+        {% endif %}
+    </td>
+    <td>
+        {% if match.date < date() %}
+            <button class="btn btn-primary btn_editPrestations" data-id="{{ match.id }}">{% if match.prestations|length > 0 %}Éditer la feuille de match{% else %}Remplir la feuille de match{% endif %}</button>
+        {% endif %}
+    </td>
+</tr>

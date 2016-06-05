@@ -12,6 +12,10 @@ match_ajax_get:
     path:     /ajax/get
     defaults: { _controller: "MatchBundle:Match:ajaxGet" }
 
+match_ajax_updateprestations:
+    path:     /ajax/updateprestations
+    defaults: { _controller: "MatchBundle:Match:ajaxUpdatePrestations" }
+
 match_referee:
     path:     /referee
     defaults: { _controller: "MatchBundle:Referee:index" }

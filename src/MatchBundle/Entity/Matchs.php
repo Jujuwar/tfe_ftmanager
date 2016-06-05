@@ -70,7 +70,7 @@ class Matchs
     /**
      * @var
      *
-     * @ORM\OneToMany(targetEntity="MatchBundle\Entity\Prestation", mappedBy="match")
+     * @ORM\OneToMany(targetEntity="MatchBundle\Entity\Prestation", mappedBy="matchs")
      */
     private $prestations;
 

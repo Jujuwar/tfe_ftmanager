@@ -68,9 +68,9 @@ class Prestation
      * @var \MatchBundle\Entity\Matchs
      * 
      * @ORM\ManyToOne(targetEntity="MatchBundle\Entity\Matchs", inversedBy="prestations")
-     * @ORM\JoinColumn(name="match", referencedColumnName="id")
+     * @ORM\JoinColumn(name="matchs", referencedColumnName="id")
      */
-    private $match;
+    private $matchs;
 
 
     /**
@@ -228,26 +228,26 @@ class Prestation
     }
 
     /**
-     * Set match
+     * Set matchs
      *
-     * @param \MatchBundle\Entity\Matchs $match
+     * @param \MatchBundle\Entity\Matchs $matchs
      *
      * @return Prestation
      */
-    public function setMatch(\MatchBundle\Entity\Matchs $match = null)
+    public function setMatchs(\MatchBundle\Entity\Matchs $matchs = null)
     {
-        $this->match = $match;
+        $this->matchs = $matchs;
 
         return $this;
     }
 
     /**
-     * Get match
+     * Get matchs
      *
      * @return \MatchBundle\Entity\Matchs
      */
-    public function getMatch()
+    public function getMatchs()
     {
-        return $this->match;
+        return $this->matchs;
     }
 }

@@ -10,7 +10,10 @@ class RefereeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findBy( array( 'referee' => $this->getUser() ) );
+        if( $this->get( 'security.authorization_checker' )->isGranted( 'ROLE_ADMIN' ) )
+            $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findAll();
+        else
+            $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findBy( array( 'referee' => $this->getUser() ) );
 
         return $this->render( 'MatchBundle:Referee:index.html.twig', array( 'matchs' => $matchs ) );
     }

@@ -36,21 +36,6 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <!--<div class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="form-control-label col-md-2" for="addNew_Title">Titre</label>
-                            <div class="col-md-10">
-                                <input type="text" id="addNew_Title" placeholder="Titre" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="form-control-label col-md-2" for="addNew_Message">Message</label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" id="addNew_Message" rows="5" placeholder="Message"></textarea>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -71,33 +56,9 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody class="table_matchs_tbody">
             {% for match in matchs %}
-                <tr>
-                    <td class="text-xs-center">
-                        {{ match.team1.name }}
-                        <br><b>VS</b><br>
-                        {{ match.team2.name }}
-                    </td>
-                    <td>{% if match.date %}{{ match.date|date('d/m/Y H:i') }}{% else %}<i>Aucune date sélectionnée</i>{% endif %}</td>
-                    <td>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
-                    <td class="text-xs-center">
-                        {% if match.date > date() %}
-                            <i>Match non joué</i>
-                        {% else %}
-                            {% if match.prestations|length > 0 %}
-                                <i class="fa fa-check text-success"></i>
-                            {% else %}
-                                <i class="fa fa-remove text-danger"></i>
-                            {% endif %}
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if match.date < date() %}
-                            <button id="btn_editPrestations" class="btn btn-primary" data-id="{{ match.id }}">{% if match.prestations|length > 0 %}Éditer la feuille de match{% else %}Remplir la feuille de match{% endif %}</button>
-                        {% endif %}
-                    </td>
-                </tr>
+                {% include 'MatchBundle:Referee:matchRow.html.twig' %}
             {% else %}
                 <i>Vous n'arbitrez aucun match pour le moment</i>
             {% endfor %}
