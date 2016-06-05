@@ -4,9 +4,8 @@
         <br><b>VS</b><br>
         {{ match.team2.name }}
     </td>
-    <td data-action="editMode" data-column="date">{% if match.date %}{{ match.date|date('d/m/Y H:i') }}{% else %}<i>Aucune date sélectionnée</i>{% endif %}</td>
-    <td {% if match.date is null or match.date > date() %}data-action="editMode" data-column="referee"{% endif %}>{% if match.referee %}{{ match.referee.username }}{% else %}<i>Aucun arbitre sélectionné</i>{% endif %}</td>
-    <td {% if match.date is null or match.date > date() %}data-action="editMode" data-column="field"{% endif %}>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
+    <td data-toggle="tooltip" data-trigger="hover" title="Appuyez longuement pour éditer" data-action="editMode" data-column="date">{% if match.date %}{{ match.date|date('d/m/Y H:i') }}{% else %}<i>Aucune date sélectionnée</i>{% endif %}</td>
+    <td {% if match.date is null or match.date > date() %}data-toggle="tooltip" data-trigger="hover" title="Appuyez longuement pour éditer" data-action="editMode" data-column="referee"{% endif %}>{% if match.referee %}{{ match.referee.username }}{% else %}<i>Aucun arbitre sélectionné</i>{% endif %}</td>
+    <td {% if match.date is null or match.date > date() %}data-toggle="tooltip" data-trigger="hover" title="Appuyez longuement pour éditer" data-action="editMode" data-column="field"{% endif %}>{% if match.field %}{{ match.field.name }}{% else %}<i>Aucun terrain sélectionné</i>{% endif %}</td>
     <td>{{ match.type }}</td>
-    <td></td>
 </tr>
