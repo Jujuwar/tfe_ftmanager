@@ -274,7 +274,7 @@ class Matchs
         $res = 0;
 
         foreach( $this->prestations as $k => $v ) {
-            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+            if( $v->getTeam() == $team )
                 $res += $v->getYellowCards();
         }
 
@@ -285,7 +285,7 @@ class Matchs
         $res = 0;
 
         foreach( $this->prestations as $k => $v ) {
-            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+            if( $v->getTeam() == $team )
                 $res += $v->getRedCards();
         }
 
@@ -296,7 +296,7 @@ class Matchs
         $res = 0;
 
         foreach( $this->prestations as $k => $v ) {
-            if( in_array( $v->getPlayer(), $team->getPlayers()->toArray() ) )
+            if( $v->getTeam() == $team )
                 $res += $v->getButs();
         }
 

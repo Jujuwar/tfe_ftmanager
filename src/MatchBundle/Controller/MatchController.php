@@ -78,6 +78,7 @@ class MatchController extends Controller
 
                         $prestation->setMatchs( $match );
                         $prestation->setPlayer( $em->getRepository( 'TeamBundle:Player' )->findOneBy( array( 'id' => $v->id ) ) );
+                        $prestation->setTeam( $prestation->getPlayer()->getTeam() );
                         $prestation->setEnterTime( $v->enterTime );
                         $prestation->setLeaveTime( $v->leaveTime );
                         $prestation->setYellowCards( $v->yellowCards );

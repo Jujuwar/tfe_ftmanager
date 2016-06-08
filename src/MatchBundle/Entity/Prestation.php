@@ -72,6 +72,14 @@ class Prestation
      */
     private $matchs;
 
+    /**
+     * @var \TeamBundle\Entity\Team
+     *
+     * @ORM\ManyToOne(targetEntity="TeamBundle\Entity\Team")
+     * @ORM\JoinColumn(name="team", referencedColumnName="id")
+     */
+    private $team;
+
 
     /**
      * Get id
@@ -249,5 +257,29 @@ class Prestation
     public function getMatchs()
     {
         return $this->matchs;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \TeamBundle\Entity\Team $team
+     *
+     * @return Prestation
+     */
+    public function setTeam(\TeamBundle\Entity\Team $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \TeamBundle\Entity\Team
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }

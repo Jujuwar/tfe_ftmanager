@@ -19,7 +19,7 @@
 
         <tbody>
             {% for prestation in match.prestations %}
-                {% if prestation.player.team == team %}
+                {% if prestation.team == team %}
                     <tr>
                         <td>{{ prestation.player.name }} {{ prestation.player.surname }}</td>
                         <td>
