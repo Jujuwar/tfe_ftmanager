@@ -23,7 +23,7 @@ $('.addNews').on('click', function() {
     var button = $(this);
 
     var title = modal.find('#addNew_Title').val();
-    var message = tinyMCE.activeEditor.getContent();
+    var message = CKEDITOR.instances['addNew_Message'].getData();
     var date = modal.find('#addNew_Date').val();
 
     button.attr('disabled', 'disabled');
