@@ -32,27 +32,33 @@ class TeamController extends Controller
         $user = $this->getUser();
 
         if( !empty( $user ) && empty( $user->getTeam() ) ) {
-            $em = $this->getDoctrine()->getManager();
+            try {
+                $em = $this->getDoctrine()->getManager();
 
-            $team = new Team();
+                $team = new Team();
 
-            $team->setManager( $user );
-            $team->setValid( false );
+                $team->setManager( $user );
+                $team->setValid( false );
+                $team->setRegistered( false );
 
-            $form = $this->createForm( TeamType::class, $team );
+                $form = $this->createForm( TeamType::class, $team );
 
-            $form->handleRequest( $request );
+                $form->handleRequest( $request );
 
-            if ($form->isValid()) {
-                $team->setRegistrationDate( new \DateTime() );
+                if ($form->isValid()) {
+                    $team->setRegistrationDate( new \DateTime() );
 
-                $em->persist( $team );
-                $em->flush();
+                    $em->persist( $team );
+                    $em->flush();
 
-                return $this->redirectToRoute( 'team_homepage' );
+                    return $this->redirectToRoute( 'team_homepage' );
+                }
+
+                return $this->render( 'TeamBundle:Default:registration.html.twig', array( 'form' => $form->createView() ) );
             }
-
-            return $this->render( 'TeamBundle:Default:registration.html.twig', array( 'form' => $form->createView() ) );
+            catch( \Exception $e ) {
+                return $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
+            }
         } else {
             $this->addFlash( 'danger', 'Vous possédez déjà une équipe' );
 
