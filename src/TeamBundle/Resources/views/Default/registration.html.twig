@@ -11,19 +11,27 @@
 {% endblock %}
 
 {% block body %}
-    {% form_theme form 'bootstrap_3_layout.html.twig' %}
     <div class="page-header">
         <h1>Création d'une équipe</h1>
     </div>
 
     <div class="col-md-6">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+        <fieldset class="form-group">
+            <label for="input_name">Nom de l'équipe</label>
+            <input type="text" class="form-control" id="input_name" placeholder="Nom de l'équipe">
+        </fieldset>
+
+        <button class="btn btn-primary addTeam">Créer l'équipe</button>
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+
+    {% javascripts output='js/compiled/registration.js'
+        '@TeamBundle/Resources/public/js/team.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

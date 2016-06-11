@@ -32,38 +32,53 @@ class TeamController extends Controller
         $user = $this->getUser();
 
         if( !empty( $user ) && empty( $user->getTeam() ) ) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-
-                $team = new Team();
-
-                $team->setManager( $user );
-                $team->setValid( false );
-                $team->setRegistered( false );
-
-                $form = $this->createForm( TeamType::class, $team );
-
-                $form->handleRequest( $request );
-
-                if ($form->isValid()) {
-                    $team->setRegistrationDate( new \DateTime() );
-
-                    $em->persist( $team );
-                    $em->flush();
-
-                    return $this->redirectToRoute( 'team_homepage' );
-                }
-
-                return $this->render( 'TeamBundle:Default:registration.html.twig', array( 'form' => $form->createView() ) );
-            }
-            catch( \Exception $e ) {
-                return $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
-            }
+            return $this->render( 'TeamBundle:Default:registration.html.twig' );
         } else {
             $this->addFlash( 'danger', 'Vous possédez déjà une équipe' );
 
-            return $this->redirectToRoute('team_homepage');
+            return $this->redirectToRoute( 'team_homepage' );
         }
+    }
+
+    public function ajaxRegistrationAction( Request $request ) {
+        if( $request->isXmlHttpRequest() ) {
+            $user = $this->getUser();
+            if( !empty( $user ) && empty( $user->getTeam() ) ) {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+
+                    $team = new Team();
+
+                    $team->setManager( $user );
+                    $team->setValid( false );
+                    $team->setRegistered( false );
+                    $team->setRegistrationDate( new \DateTime() );
+                    $team->setName( $request->get( 'name' ) );
+
+                    $errors = $this->get( 'validator' )->validate( $team );
+
+                    if( count( $errors ) == 0 ) {
+                        $em->persist( $team );
+                        $em->flush();
+
+                        $response = new Response( json_encode( array( 'status' => 'ok' ) ) );
+                    } else
+                        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Le nom de l\'équipe est invalide', 'debug' => $errors->get(0)->getMessage() ) ) );
+                } catch( \Exception $e ) {
+                    $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Une erreur inconnue s\'est produite', 'debug' => $e->getMessage() ) ) );
+                }
+            } else {
+                $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Vous possédez déjà une équipe' ) ) );
+            }
+            $response->headers->set( 'Content-Type', 'application/json') ;
+
+            return $response;
+        }
+
+        $response = new Response( json_encode( array( 'status' => 'ko', 'message' => 'Accès non autorisé', 'debug' => 'Bad request' ) ) );
+        $response->headers->set( 'Content-Type', 'application/json') ;
+
+        return $response;
     }
 
     public function ajaxSetRegisteredAction( Request $request ) {

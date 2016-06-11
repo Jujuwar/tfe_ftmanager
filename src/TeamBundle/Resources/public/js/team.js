@@ -34,3 +34,35 @@ $('.teamNotRegistred .btn-danger').on('click', function() {
         }
     });
 });
+
+$('.addTeam').on('click', function() {
+    var button = $(this);
+
+    button.attr('disabled', 'disabled');
+    button.prepend($('<i>').addClass('fa fa-spinner fa-pulse'));
+
+    var name = $('#input_name').val();
+
+    $.ajax({
+        type: 'POST',
+        url: Routing.generate('team_ajax_registration'),
+        data: {
+            name: name
+        },
+        error: function (request, error) { // Info Debuggage si erreur
+            console.log("Erreur : responseText: " + request.responseText);
+        },
+        success: function (data) {
+            if (data.status == 'ok') {
+                location.href = Routing.generate('team_homepage');
+            } else {
+                $('.modal-body-more-info').html(data.message);
+                $('.modal_alert_error').modal('show');
+                console.log(data.debug);
+
+                button.find('.fa').remove();
+                button.removeAttr('disabled');
+            }
+        }
+    });
+});

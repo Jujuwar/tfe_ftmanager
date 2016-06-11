@@ -26,6 +26,10 @@ team_ajax_setregistered:
     path:     /ajax/setregistered
     defaults: { _controller: TeamBundle:Team:ajaxSetRegistered }
 
+team_ajax_registration:
+    path:     /ajax/registration
+    defaults: { _controller: TeamBundle:Team:ajaxRegistration }
+
 # Front
 
 team_front_homepage:
