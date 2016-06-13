@@ -23,6 +23,10 @@
                 <li class="nav-item {% if app.request.attributes.get('_route') matches '{^team_front_.*$}' %}active{% endif %}">
                     <a class="nav-link" href="{{ path('team_front_homepage') }}">Équipes</a>
                 </li>
+
+                <li class="nav-item {% if app.request.attributes.get('_route') matches '{^ladder$}' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('ladder') }}">Classement</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav pull-xs-right">

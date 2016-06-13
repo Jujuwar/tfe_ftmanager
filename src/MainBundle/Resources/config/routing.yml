@@ -1,3 +1,7 @@
 main_homepage:
     path:     /
-    defaults: { _controller: MainBundle:Default:index }
+    defaults: { _controller: "MainBundle:Default:index" }
+
+ladder:
+    path:     /classement
+    defaults: { _controller: "MainBundle:Default:ladder"}

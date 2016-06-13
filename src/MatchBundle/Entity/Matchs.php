@@ -309,4 +309,24 @@ class Matchs
 
         return $nbButs1 >= $nbButs2 ? $nbButs1 == $nbButs2 ? null : $this->team1 : $this->team2;
     }
+
+    public function getPoints( \TeamBundle\Entity\Team $team ) {
+        $res = array('points' => 0, 'bp' => 0, 'bc' => 0);
+
+        if( $this->getWinner() == null )
+            $res['points'] = 1;
+        else if( $this->getWinner() == $team )
+            $res['points'] = 3;
+        else
+            $res['points'] = 0;
+
+        $res['bp'] = $this->getTotalButsByTeam( $team );
+
+        if( $this->team1 == $team )
+            $res['bc'] = $this->getTotalButsByTeam( $this->team2 );
+        else
+            $res['bc'] = $this->getTotalButsByTeam( $this->team1 );
+
+        return $res;
+    }
 }
