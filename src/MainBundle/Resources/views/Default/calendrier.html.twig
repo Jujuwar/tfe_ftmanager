@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Calendrier
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Calendrier</li>
+{% endblock %}
+
+{% block body %}
+    {% set time = "now"|date("U") %}
+    <h1>Calendrier <small class="text-muted">{{ time|date('F') }}</small></h1>
+
+    <hr>
+
+    <div class="m-b-1">
+        <button class="pull-xs-left btn btn-primary"><i class="fa fa-chevron-left"></i> {{ time|date_modify("-1 month")|date('F') }}</button>
+        <button class="pull-xs-right btn btn-primary">{{ time|date_modify("+1 month")|date('F') }} <i class="fa fa-chevron-right"></i></button>
+        <div class="clearfix"></div>
+    </div>
+
+    <table class="table table-bordered" style="table-layout: fixed;">
+        <thead>
+            <tr>
+                <th>Lundi</th>
+                <th>Mardi</th>
+                <th>Mercredi</th>
+                <th>Jeudi</th>
+                <th>Vendredi</th>
+                <th>Samedi</th>
+                <th>Dimanche</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% include 'MainBundle:Default:calendrier.body.html.twig' %}
+        </tbody>
+    </table>
+{% endblock %}

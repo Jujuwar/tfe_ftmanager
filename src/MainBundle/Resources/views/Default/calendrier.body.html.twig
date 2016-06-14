@@ -1,0 +1,41 @@
+<tr>
+    {% set daysInMonth = time|date('t') %}
+    {% set startDow = time|date('F 1\\s\\t Y')|date('N') - 1 %}
+    {% set dow = startDow %}
+
+    {% for day in range(1,daysInMonth) %}
+    {% if loop.first and startDow != 0 %}
+        <td class="table-active" colspan="{{ startDow }}"></td>
+    {% endif %}
+    <td>
+        <div>
+            <div>
+                <span class="pull-xs-left label {% if time|date('d') == day %}label-danger{% else %}label-default{% endif %}">{{ day }}</span>
+                <!--<span class="pull-xs-right">nb matchs</span>-->
+            </div>
+            <div class="clearfix"></div>
+            <div class="m-t-1">
+                {% for match in matchs if match.date|date('d') == day %}
+                    {% if not loop.first %}
+                        <hr>
+                    {% endif %}
+                    <span class="text-danger">{{ match.team1.name }}</span>
+                    <br><b>{{ match.date|date('H:i') }}</b><br>
+                    <span class="text-primary">{{ match.team2.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </td>
+    {% if loop.last and dow != 6 %}
+        <td class="table-active" colspan="{{ 6 - dow }}">&nbsp;</td>
+    {% endif %}
+
+    {% if dow == 6 %}
+    {% set dow = 0 %}
+</tr>
+<tr>
+    {% else %}
+        {% set dow = dow + 1 %}
+    {% endif %}
+    {% endfor %}
+</tr>

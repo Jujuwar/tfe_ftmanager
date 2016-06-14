@@ -41,4 +41,14 @@ class DefaultController extends Controller
 
         return $this->render( 'MainBundle:Default:classement.html.twig', array( 'teams' => $classement ) );
     }
+
+    public function calendarAction() {
+        $time = mktime( 0, 0, 0, date( "m" ), 1, date( "Y" ) );
+
+        $em = $this->getDoctrine()->getManager();
+
+        $matchs = $em->getRepository( 'MatchBundle:Matchs' )->findByDate( (new \DateTime())->setTimestamp( $time ) );
+
+        return $this->render( 'MainBundle:Default:calendrier.html.twig', array( 'matchs' => $matchs ) );
+    }
 }

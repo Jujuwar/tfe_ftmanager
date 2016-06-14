@@ -313,7 +313,7 @@ class Matchs
     public function getPoints( \TeamBundle\Entity\Team $team ) {
         $res = array('points' => 0, 'bp' => 0, 'bc' => 0);
 
-        if( $this->getWinner() == null )
+        if( $this->getWinner() === null )
             $res['points'] = 1;
         else if( $this->getWinner() == $team )
             $res['points'] = 3;

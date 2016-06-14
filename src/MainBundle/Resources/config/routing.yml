@@ -4,4 +4,8 @@ main_homepage:
 
 ladder:
     path:     /classement
-    defaults: { _controller: "MainBundle:Default:ladder"}
+    defaults: { _controller: "MainBundle:Default:ladder" }
+
+calendar:
+    path:     /calendrier
+    defaults: { _controller: "MainBundle:Default:calendar" }

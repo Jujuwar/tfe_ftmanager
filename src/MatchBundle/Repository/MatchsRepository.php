@@ -26,4 +26,19 @@ class MatchsRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    function findByDate( \DateTime $time ) {
+        $qb = $this->createQueryBuilder( 'm' );
+
+        $qb->andWhere(
+            $qb->expr()->andX()
+                ->add( 'm.date >= ?1' )
+                ->add( 'm.date < ?2' )
+        );
+
+        $qb->setParameter( '1', $time->format( 'Y-m-d' ) );
+        $qb->setParameter( '2', $time->add( new \DateInterval( 'P1M' ) )->format( 'Y-m-d' ) );
+
+        return $qb->getQuery()->getResult();
+    }
 }
