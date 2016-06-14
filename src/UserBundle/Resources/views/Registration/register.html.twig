@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • Inscription
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">Inscription</li>
+{% endblock %}
+
+{% block body %}
+    <h1>Inscription</h1>
+
+    <hr>
+
+    {% include 'UserBundle:Registration:register_content.html.twig' %}
+{% endblock %}

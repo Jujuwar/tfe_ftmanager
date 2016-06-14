@@ -1,0 +1,29 @@
+<div class="col-xs-6">
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+    <fieldset class="form-group {% if form.email.vars.errors|length > 0 %}has-danger{% endif %}">
+        <label class="form-control-label">Email</label>
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+    </fieldset>
+
+    <fieldset class="form-group {% if form.username.vars.errors|length > 0 %}has-danger{% endif %}">
+        <label class="form-control-label">Nom et prénom</label>
+        {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder':'Nom et prénom'}}) }}
+    </fieldset>
+
+    <fieldset class="form-group {% if form.plainPassword.first.vars.errors|length > 0 %}has-danger{% endif %}">
+        <label class="form-control-label">Mot de passe</label>
+        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+    </fieldset>
+
+    <fieldset class="form-group {% if form.plainPassword.second.vars.errors|length > 0 %}has-danger{% endif %}">
+        <label class="form-control-label">Vérification du mot de passe</label>
+        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder':'Vérification du mot de passe'}}) }}
+    </fieldset>
+
+    <div>
+        <input type="submit" class="btn btn-primary" value="S'inscrire" />
+    </div>
+
+    {{ form_end(form) }}
+</div>
