@@ -1,16 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{ parent() }} • Index
+{% endblock %}
+
 {% block body %}
+    <h1>News</h1>
 
-    <div class="page-header">
-        <h1>News</h1>
-    </div>
+    <hr>
 
-    <div class="col-md-8">
-        <div class="row">
-            <h2>Titre de la news</h2>
-            <span><i class="fa fa-user"></i> Admin <i class="fa fa-clock-o"></i> 02/02/2002 - 14:32</span>
+    {% for new in news %}
+        <div class="col-md-8 {% if not loop.first %}m-t-2{% endif %}">
+            <div class="row">
+                <h2 class="{% if new.publishDate > date() %}text-danger{% endif %}"> {% if new.publishDate > date() %}<i class="fa fa-eye-slash" data-toggle="tooltip" title="News non publiée"></i> {% endif %}{{ new.title }}</h2>
+                <span class="text-muted"><i class="fa fa-user"></i> {{ new.author }} - <i class="fa fa-clock-o"></i> {{ new.publishDate|date('d/m/Y - H:i') }}</span>
+                <hr class="text-danger">
+            </div>
+
+            <div class="row">
+                {{ new.message|raw }}
+            </div>
         </div>
-    </div>
+    {% endfor %}
 
 {% endblock %}
